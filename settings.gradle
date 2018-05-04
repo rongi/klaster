@@ -1,1 +1,1 @@
-include ':sample-app', ':klaster'
+include ':sample-app', ':klaster', ':klaster-test'

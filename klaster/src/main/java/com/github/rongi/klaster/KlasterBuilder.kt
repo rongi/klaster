@@ -22,6 +22,31 @@ class KlasterBuilder<ITEM> {
     return this
   }
 
+  fun <V: View> view(@LayoutRes viewResId: Int, initView: (V) -> Unit): KlasterBuilder<ITEM> {
+    layoutBuilder = { parent: ViewGroup, viewType: Int ->
+      if (layoutInflater == null) throw KlasterException("LayoutInflater must be provided to use this method")
+      layoutInflater!!.inflate(viewResId, parent, false)
+    }
+
+    return this
+  }
+
+  fun viewWithParent(createView: (parent: ViewGroup) -> View): KlasterBuilder<ITEM> {
+    layoutBuilder = { parent: ViewGroup, viewType: Int ->
+      createView(parent)
+    }
+
+    return this
+  }
+
+  fun view(createView: () -> View): KlasterBuilder<ITEM> {
+    layoutBuilder = { _: ViewGroup, viewType: Int ->
+      createView()
+    }
+
+    return this
+  }
+
   fun bind(binder: ViewHolder.(item: ITEM, position: Int) -> Unit): KlasterBuilder<ITEM> {
     this.binder = binder
     return this
