@@ -36,6 +36,10 @@ class SimpleExampleActivity : AppCompatActivity(), SimpleExampleView {
     adapter.notifyDataSetChanged()
   }
 
+  override fun showToast(message: String) {
+    message.toast(this)
+  }
+
   private fun createAdapter() = Klaster.of<Article>()
     .view(R.layout.list_item)
     .bind { article: Article ->
@@ -44,9 +48,5 @@ class SimpleExampleActivity : AppCompatActivity(), SimpleExampleView {
     }
     .layoutInflater(layoutInflater)
     .build()
-
-  override fun showToast(message: String) {
-    message.toast(this)
-  }
 
 }
