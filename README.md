@@ -1,1 +1,1 @@
-# RecyclerView adapter builder for Kotlin
+# A RecyclerView adapter builder
