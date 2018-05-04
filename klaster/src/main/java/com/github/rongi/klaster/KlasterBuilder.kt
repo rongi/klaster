@@ -13,19 +13,10 @@ class KlasterBuilder<ITEM> {
 
   private var binder: ((viewHolder: ViewHolder, item: ITEM, position: Int) -> Unit)? = null
 
-  fun view(@LayoutRes viewResId: Int): KlasterBuilder<ITEM> {
+  fun view(@LayoutRes viewResId: Int, initView: View.() -> Unit = {}): KlasterBuilder<ITEM> {
     layoutBuilder = { parent: ViewGroup, viewType: Int ->
       if (layoutInflater == null) throw KlasterException("LayoutInflater must be provided to use this method")
-      layoutInflater!!.inflate(viewResId, parent, false)
-    }
-
-    return this
-  }
-
-  fun <V: View> view(@LayoutRes viewResId: Int, initView: (V) -> Unit): KlasterBuilder<ITEM> {
-    layoutBuilder = { parent: ViewGroup, viewType: Int ->
-      if (layoutInflater == null) throw KlasterException("LayoutInflater must be provided to use this method")
-      layoutInflater!!.inflate(viewResId, parent, false)
+      layoutInflater!!.inflate(viewResId, parent, false).apply(initView)
     }
 
     return this

@@ -57,6 +57,87 @@ class TestBuilder {
     (viewHolder.itemView as TextView).text assertEquals "article title"
   }
 
+  @Test
+  fun createsViewFromResourceIdWithInitFunction() {
+    val adapter = Klaster.of<Article>()
+      .view(R.layout.list_item) {
+        this.item_text.error = "error message"
+      }
+      .bind { article: Article ->
+        item_text.text = article.title
+      }
+      .layoutInflater(LayoutInflater.from(appContext))
+      .build()
+    adapter.items = listOf(Article("article title"))
+
+    val viewHolder = adapter.createViewHolder(parent, 0).apply {
+      adapter.bindViewHolder(this, 0)
+    }
+
+    (viewHolder.itemView.item_text as TextView).text assertEquals "article title"
+    (viewHolder.itemView.item_text as TextView).error assertEquals "error message"
+  }
+
+  @Test
+  fun createsViewFromFunctionWithParent() {
+    val adapter = Klaster.of<Article>()
+      .viewWithParent { parent ->
+        LayoutInflater.from(appContext).inflate(R.layout.list_item, parent, false)
+      }
+      .bind { article: Article ->
+        item_text.text = article.title
+      }
+      .layoutInflater(LayoutInflater.from(appContext))
+      .build()
+    adapter.items = listOf(Article("article title"))
+
+    val viewHolder = adapter.createViewHolder(parent, 0).apply {
+      adapter.bindViewHolder(this, 0)
+    }
+
+    viewHolder.itemView.layoutParams assertIs FrameLayout.LayoutParams::class.java
+  }
+
+  @Test
+  fun bindsView() {
+    val adapter = Klaster.of<Article>()
+      .view(R.layout.list_item)
+      .bind { article: Article ->
+        item_text.text = article.title
+      }
+      .layoutInflater(LayoutInflater.from(appContext))
+      .build()
+    adapter.items = listOf(Article("article title"))
+
+    val viewHolder = adapter.createViewHolder(parent, 0).apply {
+      adapter.bindViewHolder(this, 0)
+    }
+
+    (viewHolder.itemView.item_text as TextView).text assertEquals "article title"
+  }
+
+  @Test
+  fun bindsViewWithPosition() {
+    val adapter = Klaster.of<Article>()
+      .view(R.layout.list_item)
+      .bind { article, position ->
+        item_text.text = "${article.title} ${position + 1}"
+      }
+      .layoutInflater(LayoutInflater.from(appContext))
+      .build()
+    adapter.items = listOf(Article("article"))
+
+    val viewHolder = adapter.createViewHolder(parent, 0).apply {
+      adapter.bindViewHolder(this, 0)
+    }
+
+    (viewHolder.itemView.item_text as TextView).text assertEquals "article 1"
+  }
+
+}
+
+infix fun Any.assertIs(clazz: Class<FrameLayout.LayoutParams>) {
+  Assert.assertEquals(clazz, this.javaClass)
 }
 
 infix fun Any.assertEquals(expected: Any) {
