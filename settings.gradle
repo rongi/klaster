@@ -1,1 +1,1 @@
-include ':sample-app', ':boxscape'
+include ':sample-app', ':klaster'

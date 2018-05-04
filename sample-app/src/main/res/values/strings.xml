@@ -1,7 +1,3 @@
 <resources>
-    <string name="app_name">Rx Presenter</string>
-    <string name="main_activity_title">Articles</string>
-    <string name="update">Update</string>
-    <string name="updating">Updating</string>
-    <string name="article_activity_title">Article</string>
+    <string name="app_name">Klaster</string>
 </resources>

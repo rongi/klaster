@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="com.github.rongi.boxscape.samples"
+<manifest package="com.github.rongi.klaster.samples"
           xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.INTERNET"/>
@@ -13,14 +13,18 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name="com.github.rongi.boxscape.samples.main.MainActivity"
-            android:label="@string/main_activity_title"
+            android:name="com.github.rongi.klaster.samples.main.MainActivity"
             >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".examples.SimpleExampleActivity"
+            android:label="Simple Example"
+            />
 
     </application>
 
