@@ -1,6 +1,5 @@
 package com.github.rongi.klaster.samples.examples.simple
 
-import com.github.rongi.klaster.samples.common.toast
 import com.github.rongi.klaster.samples.main.data.articles
 import com.github.rongi.klaster.samples.main.model.Article
 
@@ -9,7 +8,7 @@ class SimpleExamplePresenter(
 ) {
 
   fun onViewCreated() {
-     view.showArticles(articles)
+    view.showArticles(articles)
   }
 
   fun onArticleClick(article: Article) {
