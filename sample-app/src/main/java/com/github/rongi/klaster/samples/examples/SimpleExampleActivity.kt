@@ -2,8 +2,8 @@ package com.github.rongi.klaster.samples.examples
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import com.github.rongi.klaster.Box
-import com.github.rongi.klaster.BoxAdapter
+import com.github.rongi.klaster.Klaster
+import com.github.rongi.klaster.KlasterAdapter
 import com.github.rongi.klaster.samples.R
 import com.github.rongi.klaster.samples.common.init
 import com.github.rongi.klaster.samples.common.onClick
@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.recycler_view_activity.*
 
 class SimpleExampleActivity : AppCompatActivity(), SimpleExampleView {
 
-  private lateinit var adapter: BoxAdapter<Article>
+  private lateinit var adapter: KlasterAdapter<Article>
 
   private lateinit var presenter: SimpleExamplePresenter
 
@@ -37,7 +37,7 @@ class SimpleExampleActivity : AppCompatActivity(), SimpleExampleView {
     adapter.notifyDataSetChanged()
   }
 
-  private fun createAdapter() = Box.of<Article>()
+  private fun createAdapter() = Klaster.of<Article>()
     .view(R.layout.list_item)
     .bind { article: Article ->
       item_text.text = article.title

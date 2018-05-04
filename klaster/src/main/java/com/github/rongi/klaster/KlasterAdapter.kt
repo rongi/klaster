@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import kotlinx.android.extensions.LayoutContainer
 import java.util.Collections.emptyList
 
-class BoxAdapter<ITEM>(
+class KlasterAdapter<ITEM>(
   private val createView: (parent: ViewGroup, viewType: Int) -> View,
   private val bindViewHolder: (viewHolder: ViewHolder, item: ITEM, position: Int) -> Unit
 ) : RecyclerView.Adapter<ViewHolder>() {

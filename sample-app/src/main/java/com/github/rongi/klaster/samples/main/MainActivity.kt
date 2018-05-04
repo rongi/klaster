@@ -2,8 +2,8 @@ package com.github.rongi.klaster.samples.main
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import com.github.rongi.klaster.Box
-import com.github.rongi.klaster.BoxAdapter
+import com.github.rongi.klaster.Klaster
+import com.github.rongi.klaster.KlasterAdapter
 import com.github.rongi.klaster.samples.R
 import com.github.rongi.klaster.samples.common.init
 import com.github.rongi.klaster.samples.common.launch
@@ -14,14 +14,14 @@ import kotlinx.android.synthetic.main.recycler_view_activity.*
 
 class MainActivity : AppCompatActivity() {
 
-  private lateinit var adapter: BoxAdapter<ExampleListItem>
+  private lateinit var adapter: KlasterAdapter<ExampleListItem>
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.recycler_view_activity)
     recycler_view.init(this)
 
-    adapter = Box.of<ExampleListItem>()
+    adapter = Klaster.of<ExampleListItem>()
       .view(R.layout.list_item)
       .bind { item, position ->
         item_text.text = item.name
