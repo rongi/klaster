@@ -1,4 +1,4 @@
-package com.github.rongi.klaster.samples.examples
+package com.github.rongi.klaster.samples.examples.simple
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -32,7 +32,6 @@ class SimpleExampleActivity : AppCompatActivity(), SimpleExampleView {
   }
 
   override fun showArticles(articles: List<Article>) {
-    // TODO-DMITRY should items be contained inside?
     adapter.items = articles
     adapter.notifyDataSetChanged()
   }
@@ -41,12 +40,13 @@ class SimpleExampleActivity : AppCompatActivity(), SimpleExampleView {
     .view(R.layout.list_item)
     .bind { article: Article ->
       item_text.text = article.title
-      itemView.onClick = {
-        // TODO-DMITRY find out how to handle
-        "Click: ${article.title}".toast(this@SimpleExampleActivity)
-      }
+      itemView.onClick = { presenter.onArticleClick(article) }
     }
     .layoutInflater(layoutInflater)
     .build()
+
+  override fun showToast(message: String) {
+    message.toast(this)
+  }
 
 }

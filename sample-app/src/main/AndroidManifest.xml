@@ -22,7 +22,7 @@
         </activity>
 
         <activity
-            android:name=".examples.SimpleExampleActivity"
+            android:name=".examples.simple.SimpleExampleActivity"
             android:label="Simple Example"
             />
 
