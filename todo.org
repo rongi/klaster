@@ -1,2 +1,5 @@
-- Support a scenario when the view is created with a function. Need a custom ViewHolder support?
-- When creating view init function can accept view-holder
+- support a scenario when the view is created with a function. Need a custom ViewHolder support?
+- when creating view init function can accept view-holder
+- expose more adapter functions
+- support multiple types
+- support item view states
