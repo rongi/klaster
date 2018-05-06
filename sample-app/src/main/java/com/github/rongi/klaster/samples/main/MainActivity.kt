@@ -9,6 +9,7 @@ import com.github.rongi.klaster.samples.common.init
 import com.github.rongi.klaster.samples.common.launch
 import com.github.rongi.klaster.samples.common.onClick
 import com.github.rongi.klaster.samples.examples.simple.SimpleExampleActivity
+import com.github.rongi.klaster.samples.examples.stateful.StatefulExampleActivity
 import kotlinx.android.synthetic.main.list_item.*
 import kotlinx.android.synthetic.main.recycler_view_activity.*
 
@@ -38,6 +39,7 @@ class MainActivity : AppCompatActivity() {
 
   private fun onListItemClick(id: String) = when (id) {
     "simple" -> SimpleExampleActivity::class.launch(this)
+    "stateful" -> StatefulExampleActivity::class.launch(this)
     else -> throw IllegalStateException("Unknown id: $id")
   }
 
@@ -46,6 +48,10 @@ class MainActivity : AppCompatActivity() {
       ExampleListItem(
         id = "simple",
         name = "Simple Example"
+      ),
+      ExampleListItem(
+        id = "stateful",
+        name = "Stateful Example"
       )
     )
   }

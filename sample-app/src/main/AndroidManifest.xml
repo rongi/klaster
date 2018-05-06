@@ -23,7 +23,12 @@
 
         <activity
             android:name=".examples.simple.SimpleExampleActivity"
-            android:label="Simple Example"
+            android:label="@string/simple_example_activity_title"
+            />
+
+        <activity
+            android:name=".examples.stateful.StatefulExampleActivity"
+            android:label="@string/stateful_example_activity_title"
             />
 
     </application>
