@@ -3,3 +3,4 @@
 - expose more adapter functions
 - support multiple types
 - support item view states
+- transform to presenters from outside?
