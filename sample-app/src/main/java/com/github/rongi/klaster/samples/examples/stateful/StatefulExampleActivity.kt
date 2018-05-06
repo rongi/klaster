@@ -33,15 +33,17 @@ class StatefulExampleActivity : AppCompatActivity(), StatefulExampleView {
   }
 
   override fun showArticles(articles: List<Article>) {
-    adapter.items = articles.map {
-      ArticleViewPresenter(it).apply { onArticleClickListener = presenter::onArticleClick }
-    }
+    // TODO-DMITRY should be something like "adapter.dataSet().setItems()"
+    adapter.items = articles.map(::createArticleViewPresenter)
     adapter.notifyDataSetChanged()
   }
 
   override fun showToast(message: String) {
     message.toast(this)
   }
+
+  private fun createArticleViewPresenter(it: Article) =
+    ArticleViewPresenter(it).apply { onArticleClickListener = presenter::onArticleClick }
 
   private fun createAdapter() = Klaster.of<ArticleViewPresenter>()
     .view(R.layout.list_item)
