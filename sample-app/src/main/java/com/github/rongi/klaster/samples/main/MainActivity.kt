@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
 
     recycler_view.adapter = adapter
 
-    adapter.items = listItems()
+    adapter.items = listItems().toMutableList()
     adapter.notifyDataSetChanged()
   }
 

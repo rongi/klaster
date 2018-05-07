@@ -8,7 +8,9 @@ data class ArticleViewPresenter(
 
   private var view: ArticleView? = null
 
-  var onArticleClickListener: ((article: Article) -> Unit)? = null
+  var onArticleClick: ((article: Article) -> Unit)? = null
+
+  var onArticleDeleteClick: ((article: Article) -> Unit)? = null
 
   fun setView(view: ArticleView) {
     this.view = view
@@ -16,7 +18,11 @@ data class ArticleViewPresenter(
   }
 
   fun onArticleClick() {
-    onArticleClickListener?.invoke(article)
+    onArticleClick?.invoke(article)
+  }
+
+  fun onArticleDeleteClick() {
+    onArticleDeleteClick?.invoke(article)
   }
 
   private fun updateView(view: ArticleView) {

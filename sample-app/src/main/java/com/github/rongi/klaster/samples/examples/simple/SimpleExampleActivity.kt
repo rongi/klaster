@@ -8,6 +8,7 @@ import com.github.rongi.klaster.samples.R
 import com.github.rongi.klaster.samples.common.init
 import com.github.rongi.klaster.samples.common.onClick
 import com.github.rongi.klaster.samples.common.toast
+import com.github.rongi.klaster.samples.main.data.ArticlesProvider
 import com.github.rongi.klaster.samples.main.model.Article
 import kotlinx.android.synthetic.main.list_item.*
 import kotlinx.android.synthetic.main.recycler_view_activity.*
@@ -27,12 +28,15 @@ class SimpleExampleActivity : AppCompatActivity(), SimpleExampleView {
 
     recycler_view.adapter = adapter
 
-    presenter = SimpleExamplePresenter(this)
+    presenter = SimpleExamplePresenter(
+      view = this,
+      articlesProvider = ArticlesProvider
+    )
     presenter.onViewCreated()
   }
 
   override fun showArticles(articles: List<Article>) {
-    adapter.items = articles
+    adapter.items = articles.toMutableList()
     adapter.notifyDataSetChanged()
   }
 
