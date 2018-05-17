@@ -5,10 +5,7 @@ import android.support.v7.app.AppCompatActivity
 import com.github.rongi.klaster.Klaster
 import com.github.rongi.klaster.KlasterAdapter
 import com.github.rongi.klaster.samples.R
-import com.github.rongi.klaster.samples.common.init
-import com.github.rongi.klaster.samples.common.onClick
-import com.github.rongi.klaster.samples.common.toast
-import com.github.rongi.klaster.samples.common.visible
+import com.github.rongi.klaster.samples.common.*
 import com.github.rongi.klaster.samples.examples.stateful.articleview.ArticleViewImpl
 import com.github.rongi.klaster.samples.examples.stateful.articleview.ArticleViewPresenter
 import com.github.rongi.klaster.samples.main.data.ArticlesProvider
@@ -63,11 +60,13 @@ class StatefulExampleActivity : AppCompatActivity(), StatefulExampleView {
   private fun createAdapter() = Klaster.of<ArticleViewPresenter>()
     .view(R.layout.list_item) {
       delete_button.visible = true
+      check_box.visible = true
     }
-    .bind { presenter: ArticleViewPresenter ->
-      presenter.setView(ArticleViewImpl(this))
-      itemView.onClick = presenter::onArticleClick
-      delete_button.onClick = presenter::onArticleDeleteClick
+    .bind { itemPresenter: ArticleViewPresenter ->
+      itemPresenter.bindView(ArticleViewImpl(this))
+      itemView.onClick = itemPresenter::onArticleClick
+      delete_button.onClick = itemPresenter::onArticleDeleteClick
+      check_box.onCheckedChanged = itemPresenter::onCheckedChanged
     }
     .layoutInflater(layoutInflater)
     .build()

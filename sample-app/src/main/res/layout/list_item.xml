@@ -5,6 +5,17 @@
                 android:layout_height="56dp"
     >
 
+    <CheckBox
+        android:id="@+id/check_box"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_centerVertical="true"
+        android:visibility="gone"
+        tools:visibility="visible"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="-12dp"
+        />
+
     <TextView
         android:id="@+id/item_text"
         android:layout_width="wrap_content"
@@ -12,7 +23,8 @@
         android:layout_centerVertical="true"
         android:layout_marginLeft="12dp"
         android:layout_toLeftOf="@id/delete_button"
-        android:layout_alignParentLeft="true"
+        android:layout_toRightOf="@id/check_box"
+        android:layout_alignWithParentIfMissing="true"
         android:ellipsize="end"
         android:maxLines="2"
         android:textColor="#333"
@@ -25,9 +37,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:src="@drawable/delete"
         android:padding="12sp"
+        android:src="@drawable/delete"
         android:visibility="gone"
+        tools:visibility="visible"
         />
 
 </RelativeLayout>

@@ -6,6 +6,7 @@ import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
+import android.widget.CheckBox
 import android.widget.Toast
 import java.lang.UnsupportedOperationException
 import kotlin.reflect.KClass
@@ -25,7 +26,7 @@ fun Any.toast(context: Context, duration: Int = Toast.LENGTH_SHORT): Toast {
 }
 
 inline var View.onClick: () -> Unit
-  set(crossinline value) = setOnClickListener { value() }
+  set(crossinline callback) = setOnClickListener { callback() }
   get() {
     throw UnsupportedOperationException()
   }
@@ -36,4 +37,14 @@ var View.visible: Boolean
   }
   set(visible) {
     this.visibility = if (visible) View.VISIBLE else View.GONE
+  }
+
+inline var CheckBox.onCheckedChanged: (checked: Boolean) -> Unit
+  set(crossinline callback) {
+    setOnClickListener {
+      callback(this.isChecked)
+    }
+  }
+  get() {
+    throw UnsupportedOperationException()
   }

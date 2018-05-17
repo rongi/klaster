@@ -8,11 +8,13 @@ data class ArticleViewPresenter(
 
   private var view: ArticleView? = null
 
+  private var checked: Boolean = false
+
   var onArticleClick: ((article: Article) -> Unit)? = null
 
   var onArticleDeleteClick: ((article: Article) -> Unit)? = null
 
-  fun setView(view: ArticleView) {
+  fun bindView(view: ArticleView) {
     this.view = view
     updateView(view)
   }
@@ -25,8 +27,13 @@ data class ArticleViewPresenter(
     onArticleDeleteClick?.invoke(article)
   }
 
+  fun onCheckedChanged(checked: Boolean) {
+    this.checked = checked
+  }
+
   private fun updateView(view: ArticleView) {
     view.setTitle(article.title)
+    view.setChecked(checked)
   }
 
 }
