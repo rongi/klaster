@@ -5,6 +5,7 @@ import android.graphics.Canvas
 import android.support.v7.widget.RecyclerView
 import com.github.rongi.klaster.samples.R
 import java.lang.Math.round
+import kotlin.math.roundToInt
 
 private const val LEFT_PADDING = 12f
 private const val RIGHT_PADDING = 12f
@@ -18,7 +19,7 @@ class DividerItemDecoration(resources: Resources) : RecyclerView.ItemDecoration(
   private val rightPaddingPx = toPixels(RIGHT_PADDING, resources)
   private val divider = resources.getDrawable(R.drawable.divider)
 
-  override fun onDrawOver(c: Canvas, parent: RecyclerView, state: RecyclerView.State?) {
+  override fun onDraw(c: Canvas, parent: RecyclerView, state: RecyclerView.State?) {
     val left = parent.paddingLeft + leftPaddingPx
     val right = parent.width - parent.paddingRight - rightPaddingPx
 
@@ -28,7 +29,7 @@ class DividerItemDecoration(resources: Resources) : RecyclerView.ItemDecoration(
 
       val params = child.layoutParams as RecyclerView.LayoutParams
 
-      val top = child.bottom + params.bottomMargin
+      val top = child.bottom + params.bottomMargin + child.translationY.roundToInt()
       val bottom = top + divider.intrinsicHeight
 
       divider.setBounds(left, top, right, bottom)
