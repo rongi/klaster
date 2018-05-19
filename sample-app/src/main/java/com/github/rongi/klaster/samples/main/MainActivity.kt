@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
         item_text.text = item.name
         itemView.onClick = { onListItemClick(item.id) }
       }
-      .layoutInflater(layoutInflater)
+      .useLayoutInflater(layoutInflater)
       .build()
 
     recycler_view.adapter = adapter

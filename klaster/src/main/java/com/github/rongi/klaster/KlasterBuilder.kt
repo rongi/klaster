@@ -50,7 +50,7 @@ class KlasterBuilder<ITEM> {
     return this
   }
 
-  fun layoutInflater(layoutInflater: LayoutInflater): KlasterBuilder<ITEM> {
+  fun useLayoutInflater(layoutInflater: LayoutInflater): KlasterBuilder<ITEM> {
     this.layoutInflater = layoutInflater
     return this
   }

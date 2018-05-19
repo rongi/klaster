@@ -50,7 +50,7 @@ class SimpleExampleActivity : AppCompatActivity(), SimpleExampleView {
       item_text.text = article.title
       itemView.onClick = { presenter.onArticleClick(article) }
     }
-    .layoutInflater(layoutInflater)
+    .useLayoutInflater(layoutInflater)
     .build()
 
 }

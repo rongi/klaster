@@ -26,7 +26,7 @@ class TestBuilder {
       .bind { article: Article ->
         item_text.text = article.title
       }
-      .layoutInflater(LayoutInflater.from(appContext))
+      .useLayoutInflater(LayoutInflater.from(appContext))
       .build()
     adapter.items = listOf(Article("article title"))
 
@@ -46,7 +46,7 @@ class TestBuilder {
       .bind { article: Article ->
         (itemView as TextView).text = article.title
       }
-      .layoutInflater(LayoutInflater.from(appContext))
+      .useLayoutInflater(LayoutInflater.from(appContext))
       .build()
     adapter.items = listOf(Article("article title"))
 
@@ -66,7 +66,7 @@ class TestBuilder {
       .bind { article: Article ->
         item_text.text = article.title
       }
-      .layoutInflater(LayoutInflater.from(appContext))
+      .useLayoutInflater(LayoutInflater.from(appContext))
       .build()
     adapter.items = listOf(Article("article title"))
 
@@ -87,7 +87,7 @@ class TestBuilder {
       .bind { article: Article ->
         item_text.text = article.title
       }
-      .layoutInflater(LayoutInflater.from(appContext))
+      .useLayoutInflater(LayoutInflater.from(appContext))
       .build()
     adapter.items = listOf(Article("article title"))
 
@@ -105,7 +105,7 @@ class TestBuilder {
       .bind { article: Article ->
         item_text.text = article.title
       }
-      .layoutInflater(LayoutInflater.from(appContext))
+      .useLayoutInflater(LayoutInflater.from(appContext))
       .build()
     adapter.items = listOf(Article("article title"))
 
@@ -123,7 +123,7 @@ class TestBuilder {
       .bind { article, position ->
         item_text.text = "${article.title} ${position + 1}"
       }
-      .layoutInflater(LayoutInflater.from(appContext))
+      .useLayoutInflater(LayoutInflater.from(appContext))
       .build()
     adapter.items = listOf(Article("article"))
 

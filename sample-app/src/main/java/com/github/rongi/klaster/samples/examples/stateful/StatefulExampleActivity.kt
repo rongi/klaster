@@ -68,7 +68,7 @@ class StatefulExampleActivity : AppCompatActivity(), StatefulExampleView {
       delete_button.onClick = itemPresenter::onArticleDeleteClick
       check_box.onCheckedChanged = itemPresenter::onCheckedChanged
     }
-    .layoutInflater(layoutInflater)
+    .useLayoutInflater(layoutInflater)
     .build()
 
 }
