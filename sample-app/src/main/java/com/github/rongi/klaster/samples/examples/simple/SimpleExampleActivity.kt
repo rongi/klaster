@@ -44,7 +44,7 @@ class SimpleExampleActivity : AppCompatActivity(), SimpleExampleView {
     message.toast(this)
   }
 
-  private fun createAdapter() = Klaster.of<Article>()
+  private fun createAdapter() = Klaster.builder<Article>()
     .view(R.layout.list_item)
     .bind { article: Article ->
       item_text.text = article.title

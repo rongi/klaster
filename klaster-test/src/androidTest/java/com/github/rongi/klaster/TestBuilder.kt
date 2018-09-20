@@ -21,15 +21,17 @@ class TestBuilder {
 
   @Test
   fun createsViewFromResourceId() {
-    val adapter = Klaster.of<Article>()
+    val items = listOf(Article("article title"))
+    
+    val adapter = Klaster.builder()
+      .getItemsCount { items.size }
       .view(R.layout.list_item)
-      .bind { article: Article ->
-        item_text.text = article.title
+      .bind { position ->
+        item_text.text = items[position].title
       }
       .useLayoutInflater(LayoutInflater.from(appContext))
       .build()
-    adapter.items = mutableListOf(Article("article title"))
-
+    
     val viewHolder = adapter.createViewHolder(parent, 0).apply {
       adapter.bindViewHolder(this, 0)
     }
@@ -39,16 +41,18 @@ class TestBuilder {
 
   @Test
   fun createsViewFromFunction() {
-    val adapter = Klaster.of<Article>()
+    val items = listOf(Article("article title"))
+
+    val adapter = Klaster.builder()
+      .getItemsCount { items.size }
       .view {
         TextView(appContext)
       }
-      .bind { article: Article ->
-        (itemView as TextView).text = article.title
+      .bind { position ->
+        (itemView as TextView).text = items[position].title
       }
       .useLayoutInflater(LayoutInflater.from(appContext))
       .build()
-    adapter.items = mutableListOf(Article("article title"))
 
     val viewHolder = adapter.createViewHolder(parent, 0).apply {
       adapter.bindViewHolder(this, 0)
@@ -59,17 +63,19 @@ class TestBuilder {
 
   @Test
   fun createsViewFromResourceIdWithInitFunction() {
-    val adapter = Klaster.of<Article>()
+    val items = mutableListOf(Article("article title"))
+    
+    val adapter = Klaster.builder()
+      .getItemsCount { items.size }
       .view(R.layout.list_item) {
         this.item_text.error = "error message"
       }
-      .bind { article: Article ->
-        item_text.text = article.title
+      .bind { position ->
+        item_text.text = items[position].title
       }
       .useLayoutInflater(LayoutInflater.from(appContext))
       .build()
-    adapter.items = mutableListOf(Article("article title"))
-
+    
     val viewHolder = adapter.createViewHolder(parent, 0).apply {
       adapter.bindViewHolder(this, 0)
     }
@@ -80,17 +86,19 @@ class TestBuilder {
 
   @Test
   fun createsViewFromFunctionWithParent() {
-    val adapter = Klaster.of<Article>()
+    val items = mutableListOf(Article("article title"))
+    
+    val adapter = Klaster.builder()
+      .getItemsCount { items.size }
       .viewWithParent { parent ->
         LayoutInflater.from(appContext).inflate(R.layout.list_item, parent, false)
       }
-      .bind { article: Article ->
-        item_text.text = article.title
+      .bind { position ->
+        item_text.text = items[position].title
       }
       .useLayoutInflater(LayoutInflater.from(appContext))
       .build()
-    adapter.items = mutableListOf(Article("article title"))
-
+    
     val viewHolder = adapter.createViewHolder(parent, 0).apply {
       adapter.bindViewHolder(this, 0)
     }
@@ -100,14 +108,16 @@ class TestBuilder {
 
   @Test
   fun bindsView() {
-    val adapter = Klaster.of<Article>()
+    val items = mutableListOf(Article("article title"))
+
+    val adapter = Klaster.builder()
+      .getItemsCount { items.size }
       .view(R.layout.list_item)
-      .bind { article: Article ->
-        item_text.text = article.title
+      .bind { position ->
+        item_text.text = items[position].title
       }
       .useLayoutInflater(LayoutInflater.from(appContext))
       .build()
-    adapter.items = mutableListOf(Article("article title"))
 
     val viewHolder = adapter.createViewHolder(parent, 0).apply {
       adapter.bindViewHolder(this, 0)
@@ -118,14 +128,16 @@ class TestBuilder {
 
   @Test
   fun bindsViewWithPosition() {
-    val adapter = Klaster.of<Article>()
+    val items = mutableListOf(Article("article"))
+
+    val adapter = Klaster.builder()
+      .getItemsCount { items.size }
       .view(R.layout.list_item)
-      .bind { article, position ->
-        item_text.text = "${article.title} ${position + 1}"
+      .bind { position ->
+        item_text.text = "${items[position].title} ${position + 1}"
       }
       .useLayoutInflater(LayoutInflater.from(appContext))
       .build()
-    adapter.items = mutableListOf(Article("article"))
 
     val viewHolder = adapter.createViewHolder(parent, 0).apply {
       adapter.bindViewHolder(this, 0)

@@ -66,7 +66,7 @@ class StatefulExampleActivity : AppCompatActivity(), StatefulExampleView {
       onArticleDeleteClick = presenter::onArticleDeleteClick
     }
 
-  private fun createAdapter() = Klaster.of<ArticleViewPresenter>()
+  private fun createAdapter() = Klaster.builder<ArticleViewPresenter>()
     .view(R.layout.list_item) {
       delete_button.visible = true
       check_box.visible = true

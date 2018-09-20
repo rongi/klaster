@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
     setContentView(R.layout.recycler_view_activity)
     recycler_view.init(this)
 
-    adapter = Klaster.of<ExampleListItem>()
+    adapter = Klaster.builder<ExampleListItem>()
       .view(R.layout.list_item)
       .bind { item ->
         item_text.text = item.name
