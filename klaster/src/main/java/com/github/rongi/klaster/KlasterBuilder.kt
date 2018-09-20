@@ -1,67 +1,50 @@
 package com.github.rongi.klaster
 
-import android.support.annotation.LayoutRes
-import android.view.LayoutInflater
-import android.view.View
+import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
 
-class KlasterBuilder {
+open class KlasterBuilder<VH: RecyclerView.ViewHolder> {
 
-  private var layoutInflater: LayoutInflater? = null
+  private var viewHolderBuilder: ((parent: ViewGroup, viewType: Int) -> VH)? = null
 
-  private var layoutBuilder: ((parent: ViewGroup, viewType: Int) -> View)? = null
-
-  private var binder: ((viewHolder: ViewHolder, position: Int) -> Unit)? = null
+  private var binder: ((viewHolder: VH, position: Int) -> Unit)? = null
 
   private var getItemsCount: (() -> Int)? = null
 
-  fun view(@LayoutRes viewResId: Int, initView: View.() -> Unit = {}): KlasterBuilder {
-    layoutBuilder = { parent: ViewGroup, viewType: Int ->
-      if (layoutInflater == null) throw KlasterException("LayoutInflater must be provided to use this method")
-      layoutInflater!!.inflate(viewResId, parent, false).apply(initView)
+  fun viewHolder(createViewHolder: (parent: ViewGroup) -> VH): KlasterBuilder<VH> {
+    viewHolderBuilder = { parent: ViewGroup, _: Int ->
+      createViewHolder(parent)
     }
 
     return this
   }
 
-  fun viewWithParent(createView: (parent: ViewGroup) -> View): KlasterBuilder {
-    layoutBuilder = { parent: ViewGroup, viewType: Int ->
-      createView(parent)
+  fun viewHolder(createViewHolder: () -> VH): KlasterBuilder<VH> {
+    viewHolderBuilder = { _: ViewGroup, _: Int ->
+      createViewHolder()
     }
 
     return this
   }
 
-  fun view(createView: () -> View): KlasterBuilder {
-    layoutBuilder = { _: ViewGroup, viewType: Int ->
-      createView()
-    }
-
-    return this
-  }
-  
-  fun getItemsCount(getItemsCount: (() -> Int)): KlasterBuilder {
+  fun getItemsCount(getItemsCount: (() -> Int)): KlasterBuilder<VH> {
     this.getItemsCount = getItemsCount
     return this
   }
 
-  fun bind(binder: ViewHolder.(position: Int) -> Unit): KlasterBuilder {
+  fun bind(binder: VH.(position: Int) -> Unit): KlasterBuilder<VH> {
     this.binder = binder
     return this
   }
 
-  fun useLayoutInflater(layoutInflater: LayoutInflater): KlasterBuilder {
-    this.layoutInflater = layoutInflater
-    return this
-  }
-
-  fun build(): KlasterAdapter {
-    if (layoutBuilder == null) throw KlasterException("Layout builder must be provided")
+  fun build(): KlasterAdapter<VH> {
+    if (getItemsCount == null) throw KlasterException("Items count function must be provided")
+    if (viewHolderBuilder == null) throw KlasterException("View holder builder must be provided")
     if (binder == null) throw KlasterException("bind() must be set")
 
     return KlasterAdapter(
       getItemsCount = getItemsCount!!,
-      createView = layoutBuilder!!,
+      createViewHolder = viewHolderBuilder!!,
       bindViewHolder = binder!!
     )
   }
