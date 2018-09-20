@@ -28,7 +28,7 @@ class TestBuilder {
       }
       .useLayoutInflater(LayoutInflater.from(appContext))
       .build()
-    adapter.items = listOf(Article("article title"))
+    adapter.items = mutableListOf(Article("article title"))
 
     val viewHolder = adapter.createViewHolder(parent, 0).apply {
       adapter.bindViewHolder(this, 0)
@@ -48,7 +48,7 @@ class TestBuilder {
       }
       .useLayoutInflater(LayoutInflater.from(appContext))
       .build()
-    adapter.items = listOf(Article("article title"))
+    adapter.items = mutableListOf(Article("article title"))
 
     val viewHolder = adapter.createViewHolder(parent, 0).apply {
       adapter.bindViewHolder(this, 0)
@@ -68,7 +68,7 @@ class TestBuilder {
       }
       .useLayoutInflater(LayoutInflater.from(appContext))
       .build()
-    adapter.items = listOf(Article("article title"))
+    adapter.items = mutableListOf(Article("article title"))
 
     val viewHolder = adapter.createViewHolder(parent, 0).apply {
       adapter.bindViewHolder(this, 0)
@@ -89,7 +89,7 @@ class TestBuilder {
       }
       .useLayoutInflater(LayoutInflater.from(appContext))
       .build()
-    adapter.items = listOf(Article("article title"))
+    adapter.items = mutableListOf(Article("article title"))
 
     val viewHolder = adapter.createViewHolder(parent, 0).apply {
       adapter.bindViewHolder(this, 0)
@@ -107,7 +107,7 @@ class TestBuilder {
       }
       .useLayoutInflater(LayoutInflater.from(appContext))
       .build()
-    adapter.items = listOf(Article("article title"))
+    adapter.items = mutableListOf(Article("article title"))
 
     val viewHolder = adapter.createViewHolder(parent, 0).apply {
       adapter.bindViewHolder(this, 0)
@@ -125,7 +125,7 @@ class TestBuilder {
       }
       .useLayoutInflater(LayoutInflater.from(appContext))
       .build()
-    adapter.items = listOf(Article("article"))
+    adapter.items = mutableListOf(Article("article"))
 
     val viewHolder = adapter.createViewHolder(parent, 0).apply {
       adapter.bindViewHolder(this, 0)

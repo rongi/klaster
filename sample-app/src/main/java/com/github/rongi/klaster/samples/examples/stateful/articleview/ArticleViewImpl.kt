@@ -6,6 +6,7 @@ import kotlinx.android.synthetic.main.list_item.*
 class ArticleViewImpl(
   private val viewHolder: ViewHolder
 ) : ArticleView {
+
   override fun setChecked(checked: Boolean) {
     viewHolder.check_box.isChecked = checked
   }

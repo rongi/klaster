@@ -47,6 +47,15 @@ class StatefulExampleActivity : AppCompatActivity(), StatefulExampleView {
     adapter.notifyItemRemoved(articleIndex)
   }
 
+  fun updateArticle(position: Int, newTitle: String) {
+    // TODO-DMITRY
+    adapter.notifyItemChanged(position, newTitle)
+  }
+
+  // TODO-DMITRY list item presenter downloads a data and updates it's view
+  // TODO-DMITRY The problem here that it should be unbinded when necessary otherwise it will
+  // TODO-DMITRY update the wrong view.
+
   override fun showToast(message: String) {
     message.toast(this)
   }
