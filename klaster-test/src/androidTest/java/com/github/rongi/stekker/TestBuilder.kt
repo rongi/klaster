@@ -1,14 +1,13 @@
-package com.github.rongi.klaster
+package com.github.rongi.stekker
 
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4
 import android.view.LayoutInflater
 import android.widget.FrameLayout
 import android.widget.TextView
-import com.github.rongi.klaster.test.R
+import com.github.rongi.stekker.test.test.R.layout
 import kotlinx.android.synthetic.main.list_item.*
 import kotlinx.android.synthetic.main.list_item.view.*
-import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
 
@@ -19,104 +18,95 @@ class TestBuilder {
 
   private val parent = FrameLayout(appContext)
 
+  private val layoutInflater = LayoutInflater.from(appContext)
+
   @Test
   fun createsViewFromResourceId() {
     val items = listOf(Article("article title"))
-    
-    val adapter = Klaster.builder()
-      .getItemsCount { items.size }
-      .view(R.layout.list_item)
+
+    val adapter = Stekker.get()
+      .itemCount { items.size }
+      .view(layout.list_item, layoutInflater)
       .bind { position ->
         item_text.text = items[position].title
       }
-      .useLayoutInflater(LayoutInflater.from(appContext))
       .build()
-    
-    val viewHolder = adapter.createViewHolder(parent, 0).apply {
-      adapter.bindViewHolder(this, 0)
-    }
 
-    (viewHolder.itemView.item_text as TextView).text assertEquals "article title"
+    val viewHolder = adapter.createViewHolder(parent, 0)
+
+    viewHolder.itemView.item_text assertIs TextView::class.java
   }
 
   @Test
   fun createsViewFromFunction() {
     val items = listOf(Article("article title"))
 
-    val adapter = Klaster.builder()
-      .getItemsCount { items.size }
+    val adapter = Stekker.get()
+      .itemCount { items.size }
       .view {
         TextView(appContext)
       }
       .bind { position ->
         (itemView as TextView).text = items[position].title
       }
-      .useLayoutInflater(LayoutInflater.from(appContext))
       .build()
 
     val viewHolder = adapter.createViewHolder(parent, 0).apply {
       adapter.bindViewHolder(this, 0)
     }
 
-    (viewHolder.itemView as TextView).text assertEquals "article title"
+    viewHolder.itemView assertIs TextView::class.java
   }
 
   @Test
   fun createsViewFromResourceIdWithInitFunction() {
-    val items = mutableListOf(Article("article title"))
-    
-    val adapter = Klaster.builder()
-      .getItemsCount { items.size }
-      .view(R.layout.list_item) {
+    val items = listOf(Article("article title"))
+
+    val adapter = Stekker.get()
+      .itemCount { items.size }
+      .view(layout.list_item, layoutInflater) {
         this.item_text.error = "error message"
       }
       .bind { position ->
         item_text.text = items[position].title
       }
-      .useLayoutInflater(LayoutInflater.from(appContext))
       .build()
-    
-    val viewHolder = adapter.createViewHolder(parent, 0).apply {
-      adapter.bindViewHolder(this, 0)
-    }
 
-    (viewHolder.itemView.item_text as TextView).text assertEquals "article title"
+    val viewHolder = adapter.createViewHolder(parent, 0)
+
+    viewHolder.itemView.item_text assertIs TextView::class.java
     (viewHolder.itemView.item_text as TextView).error assertEquals "error message"
   }
 
   @Test
   fun createsViewFromFunctionWithParent() {
-    val items = mutableListOf(Article("article title"))
-    
-    val adapter = Klaster.builder()
-      .getItemsCount { items.size }
+    val items = listOf(Article("article title"))
+
+    val adapter = Stekker.get()
+      .itemCount { items.size }
       .viewWithParent { parent ->
-        LayoutInflater.from(appContext).inflate(R.layout.list_item, parent, false)
+        LayoutInflater.from(appContext).inflate(layout.list_item, parent, false)
       }
       .bind { position ->
         item_text.text = items[position].title
       }
-      .useLayoutInflater(LayoutInflater.from(appContext))
       .build()
-    
-    val viewHolder = adapter.createViewHolder(parent, 0).apply {
-      adapter.bindViewHolder(this, 0)
-    }
+
+    val viewHolder = adapter.createViewHolder(parent, 0)
 
     viewHolder.itemView.layoutParams assertIs FrameLayout.LayoutParams::class.java
   }
 
   @Test
   fun bindsView() {
-    val items = mutableListOf(Article("article title"))
+    val items = listOf(Article("article title"))
 
-    val adapter = Klaster.builder()
-      .getItemsCount { items.size }
-      .view(R.layout.list_item)
+    val adapter = Stekker.get()
+      .itemCount { items.size }
+      .view(layout.list_item, layoutInflater)
       .bind { position ->
         item_text.text = items[position].title
       }
-      .useLayoutInflater(LayoutInflater.from(appContext))
       .build()
 
     val viewHolder = adapter.createViewHolder(parent, 0).apply {
@@ -128,15 +118,14 @@ class TestBuilder {
 
   @Test
   fun bindsViewWithPosition() {
-    val items = mutableListOf(Article("article"))
+    val items = listOf(Article("article"))
 
-    val adapter = Klaster.builder()
-      .getItemsCount { items.size }
-      .view(R.layout.list_item)
+    val adapter = Stekker.get()
+      .itemCount { items.size }
+      .view(layout.list_item, layoutInflater)
       .bind { position ->
         item_text.text = "${items[position].title} ${position + 1}"
       }
-      .useLayoutInflater(LayoutInflater.from(appContext))
       .build()
 
     val viewHolder = adapter.createViewHolder(parent, 0).apply {
@@ -146,16 +135,32 @@ class TestBuilder {
     (viewHolder.itemView.item_text as TextView).text assertEquals "article 1"
   }
 
-}
+  @Test
+  fun itemCountWorks() {
+    val items = listOf(Article("article1 title"), Article("article2 title"))
 
-infix fun Any.assertIs(clazz: Class<FrameLayout.LayoutParams>) {
-  Assert.assertEquals(clazz, this.javaClass)
-}
+    val adapter = Stekker.get()
+      .itemCount { items.size }
+      .view(layout.list_item, layoutInflater)
+      .bind { position ->
+        item_text.text = items[position].title
+      }
+      .build()
 
-infix fun Any.assertEquals(expected: Any) {
-  Assert.assertEquals(expected, this)
-}
+    adapter.itemCount assertEquals 2
+  }
 
-data class Article(
-  val title: String
-)
+  @Test
+  fun itemCountFromNumberWorks() {
+    val adapter = Stekker.get()
+      .itemCount(42)
+      .view(layout.list_item, layoutInflater)
+      .bind { position ->
+        item_text.text = "position${position + 1}"
+      }
+      .build()
+
+    adapter.itemCount assertEquals 42
+  }
+
+}

@@ -5,5 +5,5 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.github.rongi.klaster.samples.main.MainActivity"
+    tools:context="com.github.rongi.stekker.samples.main.MainActivity"
     />

@@ -1,19 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="com.github.rongi.klaster.samples"
-          xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest package="com.github.rongi.stekker.samples"
+          xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:allowBackup="true"
+        android:fullBackupContent="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning">
 
         <activity
-            android:name="com.github.rongi.klaster.samples.main.MainActivity"
+            android:name="com.github.rongi.stekker.samples.main.MainActivity"
             >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -22,14 +25,19 @@
         </activity>
 
         <activity
-            android:name=".examples.simple.SimpleExampleActivity"
+            android:name="com.github.rongi.stekker.samples.examples.generic.GenericExampleActivity"
             android:label="@string/simple_example_activity_title"
             />
 
         <activity
-            android:name=".examples.stateful.StatefulExampleActivity"
-            android:label="@string/stateful_example_activity_title"
+            android:name="com.github.rongi.stekker.samples.examples.simple.SimpleExampleActivity"
+            android:label="@string/simple_example_activity_title"
             />
+
+        <!--<activity-->
+        <!--android:name="com.github.rongi.stekker.samples.examples.stateful.StatefulExampleActivity"-->
+        <!--android:label="@string/stateful_example_activity_title"-->
+        <!--/>-->
 
     </application>
 

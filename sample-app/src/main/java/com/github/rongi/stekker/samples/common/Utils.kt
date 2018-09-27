@@ -1,4 +1,4 @@
-package com.github.rongi.klaster.samples.common
+package com.github.rongi.stekker.samples.common
 
 import android.app.Activity
 import android.content.Context
@@ -8,7 +8,6 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.CheckBox
 import android.widget.Toast
-import java.lang.UnsupportedOperationException
 import kotlin.reflect.KClass
 
 fun <T : Activity> KClass<T>.launch(from: Activity) {

@@ -1,6 +1,6 @@
-package com.github.rongi.klaster.samples.main.data
+package com.github.rongi.stekker.samples.main.data
 
-import com.github.rongi.klaster.samples.main.model.Article
+import com.github.rongi.stekker.samples.main.model.Article
 
 object ArticlesProvider {
 

@@ -1,9 +1,9 @@
-package com.github.rongi.klaster.samples.common
+package com.github.rongi.stekker.samples.common
 
 import android.content.res.Resources
 import android.graphics.Canvas
 import android.support.v7.widget.RecyclerView
-import com.github.rongi.klaster.samples.R
+import com.github.rongi.stekker.samples.R
 import java.lang.Math.round
 import kotlin.math.roundToInt
 

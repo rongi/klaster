@@ -1,23 +1,25 @@
-package com.github.rongi.klaster.samples.examples.simple
+package com.github.rongi.stekker.samples.examples.simple
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import com.github.rongi.klaster.Klaster
-import com.github.rongi.klaster.KlasterAdapter
-import com.github.rongi.klaster.samples.R
-import com.github.rongi.klaster.samples.common.init
-import com.github.rongi.klaster.samples.common.onClick
-import com.github.rongi.klaster.samples.common.toast
-import com.github.rongi.klaster.samples.main.data.ArticlesProvider
-import com.github.rongi.klaster.samples.main.model.Article
+import com.github.rongi.stekker.SimpleAdapter
+import com.github.rongi.stekker.Stekker
+import com.github.rongi.stekker.samples.R
+import com.github.rongi.stekker.samples.common.init
+import com.github.rongi.stekker.samples.common.onClick
+import com.github.rongi.stekker.samples.common.toast
+import com.github.rongi.stekker.samples.main.data.ArticlesProvider
+import com.github.rongi.stekker.samples.main.model.Article
 import kotlinx.android.synthetic.main.list_item.*
 import kotlinx.android.synthetic.main.recycler_view_activity.*
 
 class SimpleExampleActivity : AppCompatActivity(), SimpleExampleView {
 
-  private lateinit var adapter: KlasterAdapter<Article>
+  private lateinit var adapter: SimpleAdapter
 
   private lateinit var presenter: SimpleExamplePresenter
+
+  private var articles: List<Article> = emptyList()
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -36,7 +38,7 @@ class SimpleExampleActivity : AppCompatActivity(), SimpleExampleView {
   }
 
   override fun showArticles(articles: List<Article>) {
-    adapter.items = articles.toMutableList()
+    this.articles = articles
     adapter.notifyDataSetChanged()
   }
 
@@ -44,13 +46,14 @@ class SimpleExampleActivity : AppCompatActivity(), SimpleExampleView {
     message.toast(this)
   }
 
-  private fun createAdapter() = Klaster.builder<Article>()
-    .view(R.layout.list_item)
-    .bind { article: Article ->
+  private fun createAdapter() = Stekker.get()
+    .itemCount { articles.size }
+    .view(R.layout.list_item, layoutInflater)
+    .bind { position ->
+      val article = articles[position]
       item_text.text = article.title
       itemView.onClick = { presenter.onArticleClick(article) }
     }
-    .useLayoutInflater(layoutInflater)
     .build()
 
 }

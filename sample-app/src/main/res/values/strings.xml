@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Klaster</string>
+    <string name="app_name">Stekker</string>
     <string name="simple_example_activity_title">Simple Example</string>
     <string name="stateful_example_activity_title">Stateful Example</string>
 </resources>

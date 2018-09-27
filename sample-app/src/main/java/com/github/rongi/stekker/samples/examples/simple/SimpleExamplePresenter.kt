@@ -1,7 +1,7 @@
-package com.github.rongi.klaster.samples.examples.simple
+package com.github.rongi.stekker.samples.examples.simple
 
-import com.github.rongi.klaster.samples.main.data.ArticlesProvider
-import com.github.rongi.klaster.samples.main.model.Article
+import com.github.rongi.stekker.samples.main.data.ArticlesProvider
+import com.github.rongi.stekker.samples.main.model.Article
 
 class SimpleExamplePresenter(
   private val view: SimpleExampleView,
@@ -12,7 +12,7 @@ class SimpleExamplePresenter(
 
   fun onViewCreated() {
     articles = articlesProvider.getArticles()
-    view.showArticles(articles)
+    view.showArticles(articles.toList())
   }
 
   fun onArticleClick(article: Article) {
