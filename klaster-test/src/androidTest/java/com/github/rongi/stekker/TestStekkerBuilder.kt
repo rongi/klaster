@@ -5,7 +5,7 @@ import android.support.test.runner.AndroidJUnit4
 import android.view.LayoutInflater
 import android.widget.FrameLayout
 import android.widget.TextView
-import com.github.rongi.stekker.test.test.R.layout
+import com.github.rongi.stekker.test.test.R
 import kotlinx.android.synthetic.main.list_item.*
 import kotlinx.android.synthetic.main.list_item.view.*
 import org.junit.Test
@@ -26,7 +26,7 @@ class TestStekkerBuilder {
 
     val adapter = Stekker.get()
       .itemCount { items.size }
-      .view(layout.list_item, layoutInflater)
+      .view(R.layout.list_item, layoutInflater)
       .bind { position ->
         item_text.text = items[position].title
       }
@@ -64,7 +64,7 @@ class TestStekkerBuilder {
 
     val adapter = Stekker.get()
       .itemCount { items.size }
-      .view(layout.list_item, layoutInflater) {
+      .view(R.layout.list_item, layoutInflater) {
         this.item_text.error = "error message"
       }
       .bind { position ->
@@ -85,7 +85,7 @@ class TestStekkerBuilder {
     val adapter = Stekker.get()
       .itemCount { items.size }
       .viewWithParent { parent ->
-        LayoutInflater.from(appContext).inflate(layout.list_item, parent, false)
+        LayoutInflater.from(appContext).inflate(R.layout.list_item, parent, false)
       }
       .bind { position ->
         item_text.text = items[position].title
@@ -103,7 +103,7 @@ class TestStekkerBuilder {
 
     val adapter = Stekker.get()
       .itemCount { items.size }
-      .view(layout.list_item, layoutInflater)
+      .view(R.layout.list_item, layoutInflater)
       .bind { position ->
         item_text.text = items[position].title
       }
@@ -122,7 +122,7 @@ class TestStekkerBuilder {
 
     val adapter = Stekker.get()
       .itemCount { items.size }
-      .view(layout.list_item, layoutInflater)
+      .view(R.layout.list_item, layoutInflater)
       .bind { position ->
         item_text.text = "${items[position].title} ${position + 1}"
       }
@@ -141,7 +141,7 @@ class TestStekkerBuilder {
 
     val adapter = Stekker.get()
       .itemCount { items.size }
-      .view(layout.list_item, layoutInflater)
+      .view(R.layout.list_item, layoutInflater)
       .bind { position ->
         item_text.text = items[position].title
       }
@@ -154,7 +154,7 @@ class TestStekkerBuilder {
   fun itemCountFromNumberWorks() {
     val adapter = Stekker.get()
       .itemCount(42)
-      .view(layout.list_item, layoutInflater)
+      .view(R.layout.list_item, layoutInflater)
       .bind { position ->
         item_text.text = "position${position + 1}"
       }
