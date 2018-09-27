@@ -3,7 +3,7 @@ package com.github.rongi.stekker
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
 
-open class StekkerWithViewHolderBuilder<VH: RecyclerView.ViewHolder> {
+class StekkerWithViewHolderBuilder<VH: RecyclerView.ViewHolder> {
 
   private var viewHolderBuilder: ((parent: ViewGroup, viewType: Int) -> VH)? = null
 
