@@ -14,8 +14,10 @@ class StekkerBuilder {
 
   private var getItemCount: (() -> Int)? = null
 
+  private var getItemId: ((position: Int) -> Long)? = null
+
   fun view(@LayoutRes viewResId: Int, layoutInflater: LayoutInflater, initView: View.() -> Unit = {}): StekkerBuilder {
-    viewBuilder = { parent: ViewGroup, viewType: Int ->
+    viewBuilder = { parent: ViewGroup, _: Int ->
       layoutInflater.inflate(viewResId, parent, false).apply(initView)
     }
 
@@ -23,7 +25,7 @@ class StekkerBuilder {
   }
 
   fun view(createView: () -> View): StekkerBuilder {
-    viewBuilder = { _: ViewGroup, viewType: Int ->
+    viewBuilder = { _: ViewGroup, _: Int ->
       createView()
     }
 
@@ -31,7 +33,7 @@ class StekkerBuilder {
   }
 
   fun viewWithParent(createView: (parent: ViewGroup) -> View): StekkerBuilder {
-    viewBuilder = { parent: ViewGroup, viewType: Int ->
+    viewBuilder = { parent: ViewGroup, _: Int ->
       createView(parent)
     }
 
@@ -53,6 +55,11 @@ class StekkerBuilder {
     return this
   }
 
+  fun getItemId(getItemId: (position: Int) -> Long): StekkerBuilder {
+    this.getItemId = getItemId
+    return this
+  }
+
   fun build(): RecyclerView.Adapter<SimpleViewHolder> {
     if (getItemCount == null) throw StekkerException("Items count function must be provided")
     if (viewBuilder == null) throw StekkerException("View builder must be provided")
@@ -63,7 +70,8 @@ class StekkerBuilder {
       createViewHolder = { viewGroup, position ->
         SimpleViewHolder(viewBuilder!!.invoke(viewGroup, position))
       },
-      bindViewHolder = binder!!
+      bindViewHolder = binder!!,
+      _getItemId = getItemId
     )
   }
 

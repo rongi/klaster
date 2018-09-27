@@ -71,4 +71,21 @@ class TestStekkerWithViewHolderBuilder {
     adapter.itemCount assertEquals 42
   }
 
+  @Test
+  fun getItemIdWorks() {
+    val adapter = Stekker.withViewHolder<MyViewHolder>()
+      .itemCount(42)
+      .viewHolder { parent ->
+        val view = layoutInflater.inflate(R.layout.list_item, parent, false)
+        MyViewHolder(view)
+      }
+      .bind { position ->
+        articleTitle.text = "position${position + 1}"
+      }
+      .getItemId { position -> position * 2L }
+      .build()
+
+    adapter.getItemId(10) assertEquals 20L
+  }
+
 }

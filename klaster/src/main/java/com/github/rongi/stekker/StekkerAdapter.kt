@@ -8,7 +8,8 @@ import kotlinx.android.extensions.LayoutContainer
 class StekkerAdapter<VH : RecyclerView.ViewHolder>(
   private val createViewHolder: (parent: ViewGroup, viewType: Int) -> VH,
   private val bindViewHolder: (viewHolder: VH, position: Int) -> Unit,
-  private val _getItemCount: () -> Int
+  private val _getItemCount: () -> Int,
+  private val _getItemId: ((position: Int) -> Long)?
 ) : RecyclerView.Adapter<VH>() {
 
   override fun getItemCount() = _getItemCount()
@@ -18,6 +19,13 @@ class StekkerAdapter<VH : RecyclerView.ViewHolder>(
 
   override fun onBindViewHolder(holder: VH, position: Int) =
     bindViewHolder.invoke(holder, position)
+
+  override fun getItemId(position: Int): Long =
+    if (_getItemId != null) {
+      _getItemId.invoke(position)
+    } else {
+      super.getItemId(position)
+    }
 
 }
 

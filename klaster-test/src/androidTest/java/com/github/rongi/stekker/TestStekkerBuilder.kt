@@ -155,12 +155,22 @@ class TestStekkerBuilder {
     val adapter = Stekker.get()
       .itemCount(42)
       .view(R.layout.list_item, layoutInflater)
-      .bind { position ->
-        item_text.text = "position${position + 1}"
-      }
+      .bind { position -> item_text.text = "$position" }
       .build()
 
     adapter.itemCount assertEquals 42
+  }
+
+  @Test
+  fun getItemIdWorks() {
+    val adapter = Stekker.get()
+      .itemCount(42)
+      .view(R.layout.list_item, layoutInflater)
+      .bind { position -> item_text.text = "$position" }
+      .getItemId { position -> position * 2L }
+      .build()
+
+    adapter.getItemId(10) assertEquals 20L
   }
 
 }
