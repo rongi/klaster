@@ -19,16 +19,13 @@ open class StekkerWithViewHolderBuilder<VH: RecyclerView.ViewHolder> {
     return this
   }
 
-  fun viewHolder(createViewHolder: () -> VH): StekkerWithViewHolderBuilder<VH> {
-    viewHolderBuilder = { _: ViewGroup, _: Int ->
-      createViewHolder()
-    }
-
+  fun itemCount(getItemsCount: (() -> Int)): StekkerWithViewHolderBuilder<VH> {
+    this.getItemCount = getItemsCount
     return this
   }
 
-  fun itemCount(getItemsCount: (() -> Int)): StekkerWithViewHolderBuilder<VH> {
-    this.getItemCount = getItemsCount
+  fun itemCount(count: Int): StekkerWithViewHolderBuilder<VH> {
+    this.getItemCount = { count }
     return this
   }
 
