@@ -8,9 +8,9 @@ import android.view.ViewGroup
 
 class StekkerBuilder {
 
-  private var binder: ((viewHolder: SimpleViewHolder, position: Int) -> Unit)? = null
-
   private var viewBuilder: ((parent: ViewGroup, viewType: Int) -> View)? = null
+
+  private var binder: ((viewHolder: SimpleViewHolder, position: Int) -> Unit)? = null
 
   private var getItemCount: (() -> Int)? = null
 
