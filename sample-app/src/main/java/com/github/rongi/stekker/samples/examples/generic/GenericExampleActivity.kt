@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.recycler_view_activity.*
 
 class GenericExampleActivity : AppCompatActivity(), GenericExampleView {
 
-  private lateinit var adapter: RecyclerView.Adapter<MyViewHolder>
+  private lateinit var adapter: RecyclerView.Adapter<*>
 
   private lateinit var presenter: GenericExamplePresenter
 

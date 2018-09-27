@@ -60,11 +60,12 @@ class StekkerBuilder {
     return this
   }
 
-  fun build(): RecyclerView.Adapter<SimpleViewHolder> {
+  fun build(): RecyclerView.Adapter<RecyclerView.ViewHolder> {
     if (getItemCount == null) throw StekkerException("Items count function must be provided")
     if (viewBuilder == null) throw StekkerException("View builder must be provided")
     if (binder == null) throw StekkerException("'bind()' must be set")
 
+    @Suppress("UNCHECKED_CAST")
     return StekkerAdapter(
       _getItemCount = getItemCount!!,
       createViewHolder = { viewGroup, position ->
@@ -72,7 +73,7 @@ class StekkerBuilder {
       },
       bindViewHolder = binder!!,
       _getItemId = getItemId
-    )
+    ) as RecyclerView.Adapter<RecyclerView.ViewHolder>
   }
 
 }

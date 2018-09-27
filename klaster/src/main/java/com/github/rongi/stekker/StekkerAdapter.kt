@@ -30,5 +30,3 @@ class StekkerAdapter<VH : RecyclerView.ViewHolder>(
 }
 
 class SimpleViewHolder(override val containerView: View) : RecyclerView.ViewHolder(containerView), LayoutContainer
-
-typealias SimpleAdapter = RecyclerView.Adapter<SimpleViewHolder>

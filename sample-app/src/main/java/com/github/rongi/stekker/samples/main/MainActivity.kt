@@ -2,7 +2,7 @@ package com.github.rongi.stekker.samples.main
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import com.github.rongi.stekker.SimpleAdapter
+import android.support.v7.widget.RecyclerView
 import com.github.rongi.stekker.Stekker
 import com.github.rongi.stekker.samples.R
 import com.github.rongi.stekker.samples.common.init
@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.recycler_view_activity.*
 
 class MainActivity : AppCompatActivity() {
 
-  private lateinit var adapter: SimpleAdapter
+  private lateinit var adapter: RecyclerView.Adapter<*>
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
