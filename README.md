@@ -2,6 +2,9 @@
 
 Declare RecyclerView adapters by providing three functions (get item count, create view/view hoder and bind view holder) instead of subclassing. You no longer have to spam useless adapter classes each time you need a trivial adapter. It's functional and Kotlin-friendly.
 
+Usage
+=====
+
 ```kotlin
 private fun createAdapter() = Stekker.get()
   .itemCount { articles.size }
@@ -12,4 +15,22 @@ private fun createAdapter() = Stekker.get()
     itemView.onClick = { presenter.onArticleClick(article) }
   }
   .build()
+```
+
+Download
+========
+
+```groovy
+allprojects {
+    repositories {
+        ...
+        maven { url 'https://jitpack.io' }
+    }
+}
+```
+
+```groovy
+dependencies {
+    implementation 'com.github.rongi:stekker:v1.0'
+}
 ```
