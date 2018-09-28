@@ -29,6 +29,8 @@ dependencies {
 
     implementation project(":klaster")
 
+    androidTestImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:2.0.0-RC2"
+    androidTestImplementation "org.mockito:mockito-android:2.22.0"
     androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })

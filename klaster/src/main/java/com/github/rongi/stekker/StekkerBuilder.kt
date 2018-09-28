@@ -12,9 +12,31 @@ class StekkerBuilder {
 
   private var binder: ((viewHolder: SimpleViewHolder, position: Int) -> Unit)? = null
 
+  private var binderWithPayloads: (SimpleViewHolder.(position: Int, payloads: MutableList<Any>) -> Unit)? = null
+
   private var getItemCount: (() -> Int)? = null
 
   private var getItemId: ((position: Int) -> Long)? = null
+
+  private var getItemViewType: ((Int) -> Int)? = null
+
+  private var setHasStableIds: (() -> Unit)? = null
+
+  private var onAttachedToRecyclerView: ((recyclerView: RecyclerView) -> Unit)? = null
+
+  private var onDetachedFromRecyclerView: ((recyclerView: RecyclerView) -> Unit)? = null
+
+  private var onViewAttachedToWindow: ((holder: SimpleViewHolder) -> Unit)? = null
+
+  private var onViewDetachedFromWindow: ((holder: SimpleViewHolder) -> Unit)? = null
+
+  private var onFailedToRecycleView: ((holder: SimpleViewHolder) -> Boolean)? = null
+
+  private var onViewRecycled: ((holder: SimpleViewHolder) -> Unit)? = null
+
+  private var registerAdapterDataObserver: ((observer: RecyclerView.AdapterDataObserver) -> Unit)? = null
+
+  private var unregisterAdapterDataObserver: ((observer: RecyclerView.AdapterDataObserver) -> Unit)? = null
 
   fun view(@LayoutRes viewResId: Int, layoutInflater: LayoutInflater, initView: View.() -> Unit = {}): StekkerBuilder {
     viewBuilder = { parent: ViewGroup, _: Int ->
@@ -55,8 +77,63 @@ class StekkerBuilder {
     return this
   }
 
+  fun bind(binder: SimpleViewHolder.(position: Int, payloads: MutableList<Any>) -> Unit): StekkerBuilder {
+    this.binderWithPayloads = binder
+    return this
+  }
+
   fun getItemId(getItemId: (position: Int) -> Long): StekkerBuilder {
     this.getItemId = getItemId
+    return this
+  }
+
+  fun getItemViewType(getItemViewType: (Int) -> Int): StekkerBuilder {
+    this.getItemViewType = getItemViewType
+    return this
+  }
+
+  fun setHasStableIds(setHasStableIds: () -> Unit): StekkerBuilder {
+    this.setHasStableIds = setHasStableIds
+    return this
+  }
+
+  fun onAttachedToRecyclerView(onAttachedToRecyclerView: (recyclerView: RecyclerView) -> Unit): StekkerBuilder {
+    this.onAttachedToRecyclerView = onAttachedToRecyclerView
+    return this
+  }
+
+  fun onDetachedFromRecyclerView(onDetachedFromRecyclerView: (recyclerView: RecyclerView) -> Unit): StekkerBuilder {
+    this.onDetachedFromRecyclerView = onDetachedFromRecyclerView
+    return this
+  }
+
+  fun onViewAttachedToWindow(onViewAttachedToWindow: (holder: SimpleViewHolder) -> Unit): StekkerBuilder {
+    this.onViewAttachedToWindow = onViewAttachedToWindow
+    return this
+  }
+
+  fun onViewDetachedFromWindow(onViewDetachedFromWindow: (holder: SimpleViewHolder) -> Unit): StekkerBuilder {
+    this.onViewDetachedFromWindow = onViewDetachedFromWindow
+    return this
+  }
+
+  fun onFailedToRecycleView(onFailedToRecycleView: (holder: SimpleViewHolder) -> Boolean): StekkerBuilder {
+    this.onFailedToRecycleView = onFailedToRecycleView
+    return this
+  }
+
+  fun onViewRecycled(onViewRecycled: (holder: SimpleViewHolder) -> Unit): StekkerBuilder {
+    this.onViewRecycled = onViewRecycled
+    return this
+  }
+
+  fun registerAdapterDataObserver(registerAdapterDataObserver: (observer: RecyclerView.AdapterDataObserver) -> Unit): StekkerBuilder {
+    this.registerAdapterDataObserver = registerAdapterDataObserver
+    return this
+  }
+
+  fun unregisterAdapterDataObserver(unregisterAdapterDataObserver: (observer: RecyclerView.AdapterDataObserver) -> Unit): StekkerBuilder {
+    this.unregisterAdapterDataObserver = unregisterAdapterDataObserver
     return this
   }
 
@@ -72,7 +149,18 @@ class StekkerBuilder {
         SimpleViewHolder(viewBuilder!!.invoke(viewGroup, position))
       },
       bindViewHolder = binder!!,
-      _getItemId = getItemId
+      bindViewHolderWithPayloads = binderWithPayloads,
+      _getItemId = getItemId,
+      _getItemViewType = getItemViewType,
+      _setHasStableIds = setHasStableIds,
+      _onAttachedToRecyclerView = onAttachedToRecyclerView,
+      _onDetachedFromRecyclerView = onDetachedFromRecyclerView,
+      _onViewAttachedToWindow = onViewAttachedToWindow,
+      _onViewDetachedFromWindow = onViewDetachedFromWindow,
+      _onFailedToRecycleView = onFailedToRecycleView,
+      _onViewRecycled = onViewRecycled,
+      _registerAdapterDataObserver = registerAdapterDataObserver,
+      _unregisterAdapterDataObserver = unregisterAdapterDataObserver
     ) as RecyclerView.Adapter<RecyclerView.ViewHolder>
   }
 
