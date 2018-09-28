@@ -31,6 +31,6 @@ allprojects {
 
 ```groovy
 dependencies {
-    implementation 'com.github.rongi:stekker:v1.0'
+    implementation 'com.github.rongi:stekker:0.1.0'
 }
 ```
