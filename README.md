@@ -1,6 +1,6 @@
 # A RecyclerView adapter builder
 
-Declare RecyclerView adapters with builder. You no longer need to declare a class each time you need to create a trivial adapter. It's a functional, Kotlin-friendly way to declare adapters.
+Declare RecyclerView adapters by providing three functions instead of subclassing. You no longer need to spam useless adapter classes each time you need a trivial adapter. It's functional and Kotlin-friendly.
 
 ```kotlin
 private fun createAdapter() = Stekker.get()
