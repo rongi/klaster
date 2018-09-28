@@ -34,10 +34,10 @@
             android:label="@string/simple_example_activity_title"
             />
 
-        <!--<activity-->
-        <!--android:name="com.github.rongi.stekker.samples.examples.stateful.StatefulExampleActivity"-->
-        <!--android:label="@string/stateful_example_activity_title"-->
-        <!--/>-->
+        <activity
+            android:name="com.github.rongi.stekker.samples.examples.fun.FunExampleActivity"
+            android:label="@string/simple_example_activity_title"
+            />
 
     </application>
 
