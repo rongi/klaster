@@ -17,5 +17,5 @@ class SimpleExampleActivity : Activity() {
     }
     .build()
     
-  }
+}
 ```
