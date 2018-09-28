@@ -1,6 +1,6 @@
 # A RecyclerView adapter builder
 
-Declare RecyclerView adapters by providing three functions instead of subclassing. You no longer need to spam useless adapter classes each time you need a trivial adapter. It's functional and Kotlin-friendly.
+Declare RecyclerView adapters by providing three functions (get items count, create view hoder and bind view holder) instead of subclassing. You no longer need to spam useless adapter classes each time you need a trivial adapter. It's functional and Kotlin-friendly.
 
 ```kotlin
 private fun createAdapter() = Stekker.get()
