@@ -145,8 +145,8 @@ class StekkerBuilder {
     @Suppress("UNCHECKED_CAST")
     return StekkerAdapter(
       _getItemCount = getItemCount!!,
-      createViewHolder = { viewGroup, position ->
-        SimpleViewHolder(viewBuilder!!.invoke(viewGroup, position))
+      createViewHolder = { viewGroup, viewType ->
+        SimpleViewHolder(viewBuilder!!.invoke(viewGroup, viewType))
       },
       bindViewHolder = binder!!,
       bindViewHolderWithPayloads = binderWithPayloads,
