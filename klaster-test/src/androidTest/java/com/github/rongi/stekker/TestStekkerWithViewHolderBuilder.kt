@@ -5,7 +5,9 @@ import android.support.test.runner.AndroidJUnit4
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.FrameLayout
+import android.widget.TextView
 import com.github.rongi.stekker.test.test.R
 import com.nhaarman.mockitokotlin2.*
 import org.junit.Test
@@ -35,7 +37,7 @@ class TestStekkerWithViewHolderBuilder {
 
     val adapter = Stekker.withViewHolder<MyViewHolder>()
       .itemCount { items.size }
-      .viewHolder { parent ->
+      .viewHolder { _, parent ->
         val view = layoutInflater.inflate(R.layout.list_item, parent, false)
         MyViewHolder(view)
       }
@@ -47,6 +49,33 @@ class TestStekkerWithViewHolderBuilder {
     val viewHolder = adapter.createViewHolder(parent, 0)
 
     viewHolder assertIs MyViewHolder::class.java
+  }
+
+  @Test
+  fun createsViewHolderWithViewType() {
+    val items = listOf(Article("article title"))
+
+    val adapter = Stekker.withViewHolder<MyViewHolder>()
+      .itemCount { items.size }
+      .viewHolder { viewType: Int, parent: ViewGroup ->
+        when (viewType) {
+          TYPE1 -> MyViewHolder(TextView(appContext).apply {
+            text = "type 1"
+          })
+          TYPE2 -> MyViewHolder(TextView(appContext).apply {
+            text = "type 2"
+          })
+          else -> throw IllegalStateException("Unknown view type $viewType")
+        }
+      }
+      .bind { _ -> }
+      .build()
+
+    val viewHolder1 = adapter.createViewHolder(parent, TYPE1)
+    val viewHolder2 = adapter.createViewHolder(parent, TYPE2)
+
+    viewHolder1.itemView.cast<TextView>().text assertEquals "type 1"
+    viewHolder2.itemView.cast<TextView>().text assertEquals "type 2"
   }
 
   @Test
@@ -283,7 +312,7 @@ class TestStekkerWithViewHolderBuilder {
 }
 
 private fun StekkerWithViewHolderBuilder<MyViewHolder>.defaultViewHolder(layoutInflater: LayoutInflater): StekkerWithViewHolderBuilder<MyViewHolder> {
-  return this.viewHolder { parent ->
+  return this.viewHolder { _, parent ->
     val view = layoutInflater.inflate(R.layout.list_item, parent, false)
     MyViewHolder(view)
   }

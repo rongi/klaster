@@ -35,9 +35,9 @@ class StekkerWithViewHolderBuilder<VH : RecyclerView.ViewHolder> {
 
   private var unregisterAdapterDataObserver: ((observer: RecyclerView.AdapterDataObserver) -> Unit)? = null
 
-  fun viewHolder(createViewHolder: (parent: ViewGroup) -> VH): StekkerWithViewHolderBuilder<VH> {
-    viewHolderBuilder = { parent: ViewGroup, _: Int ->
-      createViewHolder(parent)
+  fun viewHolder(createViewHolder: (viewType: Int, parent: ViewGroup) -> VH): StekkerWithViewHolderBuilder<VH> {
+    viewHolderBuilder = { parent: ViewGroup, viewType: Int ->
+      createViewHolder(viewType, parent)
     }
 
     return this

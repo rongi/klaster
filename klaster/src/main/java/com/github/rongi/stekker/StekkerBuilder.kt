@@ -54,11 +54,16 @@ class StekkerBuilder {
     return this
   }
 
-  fun viewWithParent(createView: (parent: ViewGroup) -> View): StekkerBuilder {
+  fun viewWith(createView: (parent: ViewGroup) -> View): StekkerBuilder {
     viewBuilder = { parent: ViewGroup, _: Int ->
       createView(parent)
     }
 
+    return this
+  }
+
+  fun viewWith(createView: (viewType: Int, parent: ViewGroup) -> View): StekkerBuilder {
+    viewBuilder = { parent: ViewGroup, viewType: Int -> createView(viewType, parent) }
     return this
   }
 

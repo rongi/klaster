@@ -10,3 +10,4 @@ infix fun Any.assertEquals(expected: Any) {
   Assert.assertEquals(expected, this)
 }
 
+inline fun <reified R> Any?.cast(): R = this as R

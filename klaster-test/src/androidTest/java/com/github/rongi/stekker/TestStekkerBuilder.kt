@@ -5,6 +5,7 @@ import android.support.test.runner.AndroidJUnit4
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.TextView
 import com.github.rongi.stekker.test.test.R
@@ -96,7 +97,7 @@ class TestStekkerBuilder {
 
     val adapter = Stekker.get()
       .itemCount { items.size }
-      .viewWithParent { parent ->
+      .viewWith { parent: ViewGroup ->
         LayoutInflater.from(appContext).inflate(R.layout.list_item, parent, false)
       }
       .bind { position ->
@@ -376,4 +377,37 @@ class TestStekkerBuilder {
     verify(mockFunction).invoke(adapterDataObserverMock)
   }
 
+
+  @Test
+  fun createsViewWithViewType() {
+    val items = listOf(Article("article title"))
+
+    val adapter = Stekker.get()
+      .itemCount { items.size }
+      .viewWith { viewType: Int, parent: ViewGroup ->
+        when (viewType) {
+          TYPE1 -> TextView(appContext).apply {
+            text = "type 1"
+          }
+          TYPE2 -> TextView(appContext).apply {
+            text = "type 2"
+          }
+          else -> throw IllegalStateException("Unknown view type $viewType")
+        }
+      }
+      .bind { position ->
+        item_text.text = items[position].title
+      }
+      .build()
+
+    val viewHolder1 = adapter.createViewHolder(parent, TYPE1)
+    val viewHolder2 = adapter.createViewHolder(parent, TYPE2)
+
+    viewHolder1.itemView.cast<TextView>().text assertEquals "type 1"
+    viewHolder2.itemView.cast<TextView>().text assertEquals "type 2"
+  }
+
 }
+
+const val TYPE1 = 1
+const val TYPE2 = 2
