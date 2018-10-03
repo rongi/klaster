@@ -6,7 +6,7 @@ Make RecyclerView adapters without declaring new classes. Provide only necessary
 
 This library don't compromise on flexibility and don't hide stuff from you. If it's possible to do something with subclassing, it's possible to do it with this builder also. It's just a more concise way to declare RecyclerView adapters. 
 
-And if you find this API too verbose, you can always tailor it for you needs with Kotlin extension fuctions.
+And if you find this API too verbose, you can always tailor it for you needs with Kotlin extension functions.
 
 Usage
 =====
