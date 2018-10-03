@@ -2,11 +2,11 @@
 
 # RecyclerView adapter builder
 
-Make RecyclerView adapters without declaring new classes. Provide only necessary stuff. Usually it's just three functions (get item count, create view/view hoder and bind view holder) instead of subclassing. You no longer have to spam useless adapter classes each time you need a trivial adapter. It's functional and Kotlin-friendly.
+Make RecyclerView adapters without declaring new classes. Provide only necessary stuff. Usually, it's just three functions (get item count, create view/view holder and bind view holder) instead of subclassing. You no longer have to spam useless adapter classes each time you need a trivial adapter. It's functional and Kotlin-friendly.
 
-This library don't compromise on flexibility and don't hide stuff from you. If it's possible to do something with subclassing, it's possible to do it with this builder also. It's just a more concise way to declare RecyclerView adapters. 
+This library doesn't compromise on flexibility and doesn't hide stuff from you. If it's possible to do something with subclassing, it's possible to do it with this builder also. It's just a more concise way to declare RecyclerView adapters. 
 
-And if you find this API too verbose, you can always tailor it for you needs with Kotlin extension functions.
+And if you find this API too verbose, you can always tailor it for your needs with Kotlin extension functions.
 
 Usage
 =====
