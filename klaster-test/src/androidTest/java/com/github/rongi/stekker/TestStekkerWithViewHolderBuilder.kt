@@ -23,10 +23,6 @@ class TestStekkerWithViewHolderBuilder {
 
   private val layoutInflater = LayoutInflater.from(appContext)
 
-  private val viewMock: View = mock()
-
-  private val viewHolderMock = MyViewHolder(viewMock)
-
   private val recyclerViewMock: RecyclerView = mock()
 
   private val adapterDataObserverMock: RecyclerView.AdapterDataObserver = mock()
@@ -61,9 +57,11 @@ class TestStekkerWithViewHolderBuilder {
         when (viewType) {
           TYPE1 -> MyViewHolder(TextView(appContext).apply {
             text = "type 1"
+            id = R.id.item_text
           })
           TYPE2 -> MyViewHolder(TextView(appContext).apply {
             text = "type 2"
+            id = R.id.item_text
           })
           else -> throw IllegalStateException("Unknown view type $viewType")
         }
@@ -76,6 +74,24 @@ class TestStekkerWithViewHolderBuilder {
 
     viewHolder1.itemView.cast<TextView>().text assertEquals "type 1"
     viewHolder2.itemView.cast<TextView>().text assertEquals "type 2"
+  }
+
+  @Test
+  fun bindsViewHolder() {
+    val viewHolder = createViewHolder()
+    val items = listOf(Article("article title"))
+
+    val adapter = Stekker.withViewHolder<MyViewHolder>()
+      .itemCount { items.size }
+      .defaultViewHolder(layoutInflater)
+      .bind { position ->
+        articleTitle.text = "${items[position].title}, position: $position"
+      }
+      .build()
+
+    adapter.bindViewHolder(viewHolder, 0)
+
+    viewHolder.cast<MyViewHolder>().articleTitle.text assertEquals "article title, position: 0"
   }
 
   @Test
@@ -120,6 +136,7 @@ class TestStekkerWithViewHolderBuilder {
 
   @Test
   fun bindWithPayloadsWorks() {
+    val viewHolder = createViewHolder()
     val mockFunction = mock<((binder: MyViewHolder, position: Int, payloads: MutableList<Any>) -> Unit)>()
     val adapter = Stekker.withViewHolder<MyViewHolder>()
       .itemCount(100)
@@ -130,7 +147,7 @@ class TestStekkerWithViewHolderBuilder {
       }
       .build()
 
-    adapter.onBindViewHolder(viewHolderMock, 42, listOf("a"))
+    adapter.onBindViewHolder(viewHolder, 42, listOf("a"))
 
     verify(mockFunction).invoke(any(), eq(42), eq(mutableListOf<Any>("a")))
   }
@@ -207,6 +224,7 @@ class TestStekkerWithViewHolderBuilder {
 
   @Test
   fun onViewAttachedToWindowWorks() {
+    val viewHolder = createViewHolder()
     val mockFunction = mock<((holder: MyViewHolder) -> Unit)>()
     val adapter = Stekker.withViewHolder<MyViewHolder>()
       .itemCount(100)
@@ -217,13 +235,14 @@ class TestStekkerWithViewHolderBuilder {
       }
       .build()
 
-    adapter.onViewAttachedToWindow(viewHolderMock)
+    adapter.onViewAttachedToWindow(viewHolder)
 
-    verify(mockFunction).invoke(viewHolderMock)
+    verify(mockFunction).invoke(viewHolder)
   }
 
   @Test
   fun onViewDetachedFromWindowWorks() {
+    val viewHolder = createViewHolder()
     val mockFunction = mock<((holder: MyViewHolder) -> Unit)>()
     val adapter = Stekker.withViewHolder<MyViewHolder>()
       .itemCount(100)
@@ -234,13 +253,14 @@ class TestStekkerWithViewHolderBuilder {
       }
       .build()
 
-    adapter.onViewDetachedFromWindow(viewHolderMock)
+    adapter.onViewDetachedFromWindow(viewHolder)
 
-    verify(mockFunction).invoke(viewHolderMock)
+    verify(mockFunction).invoke(viewHolder)
   }
 
   @Test
   fun onFailedToRecycleViewWorks() {
+    val viewHolder = createViewHolder()
     val mockFunction = mock<((holder: MyViewHolder) -> Boolean)>().apply {
       whenever(this.invoke(anyOrNull())).thenReturn(true)
     }
@@ -253,13 +273,14 @@ class TestStekkerWithViewHolderBuilder {
       }
       .build()
 
-    adapter.onFailedToRecycleView(viewHolderMock)
+    adapter.onFailedToRecycleView(viewHolder)
 
-    verify(mockFunction).invoke(viewHolderMock)
+    verify(mockFunction).invoke(viewHolder)
   }
 
   @Test
   fun onViewRecycledWorks() {
+    val viewHolder = createViewHolder()
     val mockFunction = mock<((holder: MyViewHolder) -> Unit)>()
     val adapter = Stekker.withViewHolder<MyViewHolder>()
       .itemCount(100)
@@ -270,9 +291,9 @@ class TestStekkerWithViewHolderBuilder {
       }
       .build()
 
-    adapter.onViewRecycled(viewHolderMock)
+    adapter.onViewRecycled(viewHolder)
 
-    verify(mockFunction).invoke(viewHolderMock)
+    verify(mockFunction).invoke(viewHolder)
   }
 
   @Test
@@ -307,6 +328,11 @@ class TestStekkerWithViewHolderBuilder {
     adapter.unregisterAdapterDataObserver(adapterDataObserverMock)
 
     verify(mockFunction).invoke(adapterDataObserverMock)
+  }
+
+  private fun createViewHolder(): MyViewHolder {
+    val viewMock: View = layoutInflater.inflate(R.layout.list_item, null)
+    return MyViewHolder(viewMock)
   }
 
 }
