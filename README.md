@@ -2,6 +2,51 @@
 
 # Declare RecyclerView adapters without boilerplate
 
+```kotlin
+private fun createAdapter() = Klaster.withViewHolder<MyViewHolder>()
+  .itemCount { articles.size }
+  .viewHolder { _, parent ->
+    val view = layoutInflater.inflate(R.layout.list_item, parent, false)
+    MyViewHolder(view)
+  }
+  .bind { position ->
+    val article = articles[position]
+    articleTitle.text = article.title
+    itemView.onClick = { presenter.onArticleClick(article) }
+  }
+  .build()
+```
+Instead of
+
+```java
+private class ArticlesAdapter(
+  val layoutInflater: LayoutInflater
+) : RecyclerView.Adapter<ArticlesViewHolder>() {
+
+  private class ArticlesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    val articleTitle: TextView = itemView.findViewById(R.id.item_text)
+  }
+
+  val onItemClick: (() -> Unit)? = null
+
+  override fun getItemCount(): Int {
+    return articles.size
+  }
+
+  override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArticlesViewHolder {
+    val view = layoutInflater.inflate(R.layout.list_item, parent, false)
+    return ArticlesViewHolder(view)
+  }
+
+  override fun onBindViewHolder(holder: ArticlesViewHolder, position: Int) {
+    val article = articles[position]
+    holder.articleTitle.text = article.title
+    holder.itemView.onClick = { onItemClick?.invoke() }
+  }
+
+}
+```
+
 Ever wondered why you need to declare an extra class for each of your adapters when essentially an adapter is just two function combined together: `onCreateViewHolder()` and `onBindViewHolder()`? Why can't we have something that takes those two functions and construct a proper adapter for us? Well, you can with this library. And with power of Kotlin Android Extesions you don't even need to create `ViewHolder` classes anymore.
 
 This library doesn't compromise on flexibility and doesn't hide stuff from you. If it's possible to do something by declaring a new adapter class, it's possible to do it with this library. It's just a more concise way to declare RecyclerView adapters. 
