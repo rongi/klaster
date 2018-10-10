@@ -44,7 +44,7 @@ private fun createAdapter() = Klaster.withViewHolder<MyViewHolder>()
 
 ## Functional way to create adapters
 
-This function creates an adapter that shows a list of items and returns a `ListPresenter` interface, which is just a single function to change this list.
+This function creates an adapter backed by a simple `List` of item. It returns a `ListPresenter` interface, which is just a single function to change this list.
 
 ```kotlin
 interface ListPresenter {
