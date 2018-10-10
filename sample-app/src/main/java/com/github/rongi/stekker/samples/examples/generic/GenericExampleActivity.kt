@@ -38,7 +38,7 @@ class GenericExampleActivity : AppCompatActivity(), GenericExampleView {
 
   private fun createAdapter() = Stekker.withViewHolder<MyViewHolder>()
     .itemCount { articles.size }
-    .viewHolder { parent ->
+    .viewHolder { _, parent ->
       val view = layoutInflater.inflate(R.layout.list_item, parent, false)
       MyViewHolder(view)
     }
