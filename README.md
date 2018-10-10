@@ -2,7 +2,7 @@
 
 # Declare RecyclerView adapters without boilerplate
 
-Ever wondered why you need to declare an extra class for each of your adapters when essentially an adapter is just two function combined together: `onCreateViewHolder()` and `onBindViewHolder()`? Why can't we have something that takes those two functions and construct a proper adapter for us? Well, you can with this library. And with power of Kotlin Android extesions you don't need to create `ViewHolder` classes anymore.
+Ever wondered why you need to declare an extra class for each of your adapters when essentially an adapter is just two function combined together: `onCreateViewHolder()` and `onBindViewHolder()`? Why can't we have something that takes those two functions and construct a proper adapter for us? Well, you can with this library. And with power of Kotlin Android Extesions you don't even need to create `ViewHolder` classes anymore.
 
 This library doesn't compromise on flexibility and doesn't hide stuff from you. If it's possible to do something by declaring a new adapter class, it's possible to do it with this library. It's just a more concise way to declare RecyclerView adapters. 
 
