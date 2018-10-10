@@ -6,7 +6,7 @@ Ever wondered why you need to declare an extra class for each of your adapters w
 
 This library doesn't compromise on flexibility and doesn't hide stuff from you. If it's possible to do something by declaring a new adapter class, it's possible to do it with this library. It's just a more concise way to declare RecyclerView adapters. 
 
-You may find that for your specific case you would prefer to have even more concise API. Well, with Kotlin extension functions you can tailor this API for your needs the way you like.
+You may find that for your specific case you would prefer to have even more concise API. Well, with Kotlin extension functions you can tailor this API for your needs.
 
 Usage
 =====
