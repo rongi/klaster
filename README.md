@@ -42,6 +42,40 @@ private fun createAdapter() = Klaster.withViewHolder<MyViewHolder>()
   .build()
 ```
 
+## Functional way to create adapters
+
+```kotlin
+private fun createAdapter(
+  layoutInflater: LayoutInflater,
+  onItemClick: (Article) -> Unit
+): Pair<RecyclerView.Adapter<*>, ListPresenter> {
+  var articles: List<Article> = emptyList()
+
+  val adapter = Klaster.get()
+    .itemCount { articles.size }
+    .view(R.layout.list_item, layoutInflater)
+    .bind { position ->
+      val article = articles[position]
+      item_text.text = article.title
+      itemView.onClick = { onItemClick(article) }
+    }
+    .build()
+
+  val presenter = object : ListPresenter {
+    override fun setItems(items: List<Article>) {
+      articles = items
+      adapter.notifyDataSetChanged()
+    }
+  }
+
+  return adapter to presenter
+}
+
+interface ListPresenter {
+  fun setItems(items: List<Article>)
+}
+```
+
 Download
 ========
 
