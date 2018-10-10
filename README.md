@@ -5,7 +5,7 @@
 Like this.
 
 ```kotlin
-private fun createAdapter() = Klaster.get()
+private fun articlesAdapter() = Klaster.get()
   .itemCount { articles.size }
   .view(R.layout.list_item, layoutInflater)
   .bind { position ->
