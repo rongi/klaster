@@ -2,6 +2,8 @@
 
 # Declare RecyclerView adapters without boilerplate
 
+Like this.
+
 ```kotlin
 private fun articlesAdapter() = Klaster.withViewHolder<MyViewHolder>()
   .itemCount { articles.size }
@@ -16,7 +18,8 @@ private fun articlesAdapter() = Klaster.withViewHolder<MyViewHolder>()
   }
   .build()
 ```
-Instead of
+
+The same solution with subclassing will look like this.
 
 ```java
 private class ArticlesAdapter(
