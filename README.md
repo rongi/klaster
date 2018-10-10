@@ -5,15 +5,12 @@
 Like this.
 
 ```kotlin
-private fun articlesAdapter() = Klaster.withViewHolder<MyViewHolder>()
+private fun createAdapter() = Klaster.get()
   .itemCount { articles.size }
-  .viewHolder { _, parent ->
-    val view = layoutInflater.inflate(R.layout.list_item, parent, false)
-    MyViewHolder(view)
-  }
+  .view(R.layout.list_item, layoutInflater)
   .bind { position ->
     val article = articles[position]
-    articleTitle.text = article.title
+    item_text.text = article.title
     itemView.onClick = { presenter.onArticleClick(article) }
   }
   .build()
