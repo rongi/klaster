@@ -11,6 +11,8 @@ You may find that for your specific case you would prefer to have even more conc
 Usage
 =====
 
+## Basic
+
 ```kotlin
 private fun createAdapter() = Klaster.get()
   .itemCount { articles.size }
@@ -18,6 +20,23 @@ private fun createAdapter() = Klaster.get()
   .bind { position ->
     val article = articles[position]
     item_text.text = article.title
+    itemView.onClick = { presenter.onArticleClick(article) }
+  }
+  .build()
+```
+
+## With custom `ViewHolder`
+
+```kotlin
+private fun createAdapter() = Klaster.withViewHolder<MyViewHolder>()
+  .itemCount { articles.size }
+  .viewHolder { _, parent ->
+    val view = layoutInflater.inflate(R.layout.list_item, parent, false)
+    MyViewHolder(view)
+  }
+  .bind { position ->
+    val article = articles[position]
+    articleTitle.text = article.title
     itemView.onClick = { presenter.onArticleClick(article) }
   }
   .build()
