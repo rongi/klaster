@@ -1,4 +1,4 @@
-package com.github.rongi.klaster.samples.examples.generic
+package com.github.rongi.klaster.samples.examples.customviewholder
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -12,11 +12,11 @@ import com.github.rongi.klaster.samples.main.data.ArticlesProvider
 import com.github.rongi.klaster.samples.main.model.Article
 import kotlinx.android.synthetic.main.recycler_view_activity.*
 
-class GenericExampleActivity : AppCompatActivity(), GenericExampleView {
+class CustomViewHolderExampleActivity : AppCompatActivity(), CustomViewHolderExampleView {
 
   private lateinit var adapter: RecyclerView.Adapter<*>
 
-  private lateinit var presenter: GenericExamplePresenter
+  private lateinit var presenter: CustomViewHolderExamplePresenter
 
   private var articles: List<Article> = emptyList()
 
@@ -29,7 +29,7 @@ class GenericExampleActivity : AppCompatActivity(), GenericExampleView {
 
     recycler_view.adapter = adapter
 
-    presenter = GenericExamplePresenter(
+    presenter = CustomViewHolderExamplePresenter(
       view = this,
       articlesProvider = ArticlesProvider
     )

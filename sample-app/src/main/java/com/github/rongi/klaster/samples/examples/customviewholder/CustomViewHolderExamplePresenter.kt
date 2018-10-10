@@ -1,10 +1,10 @@
-package com.github.rongi.klaster.samples.examples.generic
+package com.github.rongi.klaster.samples.examples.customviewholder
 
 import com.github.rongi.klaster.samples.main.data.ArticlesProvider
 import com.github.rongi.klaster.samples.main.model.Article
 
-class GenericExamplePresenter(
-  private val view: GenericExampleView,
+class CustomViewHolderExamplePresenter(
+  private val view: CustomViewHolderExampleView,
   private val articlesProvider: ArticlesProvider
 ) {
 

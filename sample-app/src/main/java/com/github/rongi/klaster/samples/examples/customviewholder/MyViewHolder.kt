@@ -1,4 +1,4 @@
-package com.github.rongi.klaster.samples.examples.generic
+package com.github.rongi.klaster.samples.examples.customviewholder
 
 import android.support.v7.widget.RecyclerView
 import android.view.View

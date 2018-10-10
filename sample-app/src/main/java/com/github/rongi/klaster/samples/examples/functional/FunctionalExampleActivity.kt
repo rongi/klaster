@@ -69,3 +69,7 @@ private fun createAdapter(
 
   return adapter to presenter
 }
+
+interface ListPresenter {
+  fun setItems(items: List<Article>)
+}
