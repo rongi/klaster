@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="com.github.rongi.stekker.samples"
+<manifest package="com.github.rongi.klaster.samples"
           xmlns:android="http://schemas.android.com/apk/res/android"
           xmlns:tools="http://schemas.android.com/tools">
 
@@ -16,7 +16,7 @@
         tools:ignore="GoogleAppIndexingWarning">
 
         <activity
-            android:name="com.github.rongi.stekker.samples.main.MainActivity"
+            android:name="com.github.rongi.klaster.samples.main.MainActivity"
             >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -25,17 +25,17 @@
         </activity>
 
         <activity
-            android:name="com.github.rongi.stekker.samples.examples.generic.GenericExampleActivity"
+            android:name="com.github.rongi.klaster.samples.examples.generic.GenericExampleActivity"
             android:label="@string/simple_example_activity_title"
             />
 
         <activity
-            android:name="com.github.rongi.stekker.samples.examples.simple.SimpleExampleActivity"
+            android:name="com.github.rongi.klaster.samples.examples.simple.SimpleExampleActivity"
             android:label="@string/simple_example_activity_title"
             />
 
         <activity
-            android:name="com.github.rongi.stekker.samples.examples.fun.FunExampleActivity"
+            android:name="com.github.rongi.klaster.samples.examples.fun.FunExampleActivity"
             android:label="@string/simple_example_activity_title"
             />
 
