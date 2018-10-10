@@ -12,7 +12,7 @@ Usage
 =====
 
 ```kotlin
-private fun createAdapter() = Stekker.get()
+private fun createAdapter() = Klaster.get()
   .itemCount { articles.size }
   .view(R.layout.list_item, layoutInflater)
   .bind { position ->
