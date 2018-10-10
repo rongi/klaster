@@ -78,6 +78,30 @@ private fun createAdapter(
 }
 ```
 
+## Create your own extensions
+
+You can tailor the builder for you needs by creating your own, even more elegant APIs using Kotlin extension functions. For example, if you want to create an adapter for a `List` of items that never change, then you can make this extension functions.
+
+```kotlin
+fun <T> KlasterBuilder.bind(items: List<T>, binder: KlasterViewHolder.(item: T, position: Int) -> Unit): KlasterBuilder =
+  this.itemCount(items.size)
+    .bind { position ->
+      val item = items[position]
+      binder(item, position)
+    }
+```
+
+And use it like this.
+
+```kotlin
+fun <T> KlasterBuilder.bind(items: List<T>, binder: KlasterViewHolder.(item: T, position: Int) -> Unit): KlasterBuilder =
+  this.itemCount(items.size)
+    .bind { position ->
+      val item = items[position]
+      binder(item, position)
+    }
+```
+
 Download
 ========
 
