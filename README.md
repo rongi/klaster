@@ -80,18 +80,18 @@ private fun createAdapter(
 
 ## Create your own extensions
 
-You can tailor the builder for you needs by creating your own, even more elegant APIs using Kotlin extension functions. For example, if you want to create an adapter for a `List` of items that never change, then you can make this extension functions.
+You can tailor the builder for you needs by creating your own, even more elegant APIs using Kotlin extension functions. For example, if you want to create an adapter for a `List` of items that never change, then you may want to have an API like this (notice no `itemCount()` function).
 
 ```kotlin
-fun <T> KlasterBuilder.bind(items: List<T>, binder: KlasterViewHolder.(item: T, position: Int) -> Unit): KlasterBuilder =
-  this.itemCount(items.size)
-    .bind { position ->
-      val item = items[position]
-      binder(item, position)
-    }
+fun createAdapter(articles: List<Article>, layoutInflater: LayoutInflater) = Klaster.get()
+  .view(R.layout.list_item, layoutInflater)
+  .bind(articles) { article, position ->
+    item_text.text = article.title
+  }
+  .build()
 ```
 
-And use it like this.
+You can have it with an extension function like this.
 
 ```kotlin
 fun <T> KlasterBuilder.bind(items: List<T>, binder: KlasterViewHolder.(item: T, position: Int) -> Unit): KlasterBuilder =
