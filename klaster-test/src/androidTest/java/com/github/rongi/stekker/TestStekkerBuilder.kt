@@ -27,7 +27,7 @@ class TestStekkerBuilder {
 
   private val viewMock: View = mock()
 
-  private val viewHolderMock = SimpleViewHolder(viewMock)
+  private val viewHolderMock = KlasterViewHolder(viewMock)
 
   private val recyclerViewMock: RecyclerView = mock()
 
@@ -56,7 +56,7 @@ class TestStekkerBuilder {
 
     val adapter = Stekker.get()
       .itemCount { items.size }
-      .view {
+      .viewBy {
         TextView(appContext)
       }
       .bind { position ->
@@ -97,7 +97,7 @@ class TestStekkerBuilder {
 
     val adapter = Stekker.get()
       .itemCount { items.size }
-      .viewWith { parent: ViewGroup ->
+      .view { parent: ViewGroup ->
         LayoutInflater.from(appContext).inflate(R.layout.list_item, parent, false)
       }
       .bind { position ->
@@ -188,7 +188,7 @@ class TestStekkerBuilder {
 
   @Test
   fun bindWithPayloadsWorks() {
-    val mockFunction = mock<((binder: SimpleViewHolder, position: Int, payloads: MutableList<Any>) -> Unit)>()
+    val mockFunction = mock<((binder: KlasterViewHolder, position: Int, payloads: MutableList<Any>) -> Unit)>()
     val adapter = Stekker.get()
       .itemCount(100)
       .view(R.layout.list_item, layoutInflater)
@@ -275,7 +275,7 @@ class TestStekkerBuilder {
 
   @Test
   fun onViewAttachedToWindowWorks() {
-    val mockFunction = mock<((holder: SimpleViewHolder) -> Unit)>()
+    val mockFunction = mock<((holder: KlasterViewHolder) -> Unit)>()
     val adapter = Stekker.get()
       .itemCount(100)
       .view(R.layout.list_item, layoutInflater)
@@ -292,7 +292,7 @@ class TestStekkerBuilder {
 
   @Test
   fun onViewDetachedFromWindowWorks() {
-    val mockFunction = mock<((holder: SimpleViewHolder) -> Unit)>()
+    val mockFunction = mock<((holder: KlasterViewHolder) -> Unit)>()
     val adapter = Stekker.get()
       .itemCount(100)
       .view(R.layout.list_item, layoutInflater)
@@ -309,7 +309,7 @@ class TestStekkerBuilder {
 
   @Test
   fun onFailedToRecycleViewWorks() {
-    val mockFunction = mock<((holder: SimpleViewHolder) -> Boolean)>().apply {
+    val mockFunction = mock<((holder: KlasterViewHolder) -> Boolean)>().apply {
       whenever(this.invoke(anyOrNull())).thenReturn(true)
     }
     val adapter = Stekker.get()
@@ -328,7 +328,7 @@ class TestStekkerBuilder {
 
   @Test
   fun onViewRecycledWorks() {
-    val mockFunction = mock<((holder: SimpleViewHolder) -> Unit)>()
+    val mockFunction = mock<((holder: KlasterViewHolder) -> Unit)>()
     val adapter = Stekker.get()
       .itemCount(100)
       .view(R.layout.list_item, layoutInflater)
@@ -384,7 +384,7 @@ class TestStekkerBuilder {
 
     val adapter = Stekker.get()
       .itemCount { items.size }
-      .viewWith { viewType: Int, parent: ViewGroup ->
+      .view { viewType: Int, parent: ViewGroup ->
         when (viewType) {
           TYPE1 -> TextView(appContext).apply {
             text = "type 1"

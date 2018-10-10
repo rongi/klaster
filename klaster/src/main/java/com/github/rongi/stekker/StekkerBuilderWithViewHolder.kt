@@ -1,21 +1,21 @@
 package com.github.rongi.stekker
 
-import android.support.annotation.LayoutRes
 import android.support.v7.widget.RecyclerView
-import android.view.LayoutInflater
-import android.view.View
+import android.support.v7.widget.RecyclerView.ViewHolder
 import android.view.ViewGroup
 
 /**
  * A builder to make [RecyclerView.Adapter] objects.
+ *
+ * It is intended for the cases when you need a custom [ViewHolder].
  */
-class StekkerBuilder {
+class StekkerBuilderWithViewHolder<VH : RecyclerView.ViewHolder> {
 
-  private var viewBuilder: ((parent: ViewGroup, viewType: Int) -> View)? = null
+  private var viewHolderBuilder: ((parent: ViewGroup, viewType: Int) -> VH)? = null
 
-  private var binder: ((viewHolder: KlasterViewHolder, position: Int) -> Unit)? = null
+  private var binder: ((viewHolder: VH, position: Int) -> Unit)? = null
 
-  private var binderWithPayloads: (KlasterViewHolder.(position: Int, payloads: MutableList<Any>) -> Unit)? = null
+  private var binderWithPayloads: (VH.(position: Int, payloads: MutableList<Any>) -> Unit)? = null
 
   private var getItemCount: (() -> Int)? = null
 
@@ -29,75 +29,33 @@ class StekkerBuilder {
 
   private var onDetachedFromRecyclerView: ((recyclerView: RecyclerView) -> Unit)? = null
 
-  private var onViewAttachedToWindow: ((holder: KlasterViewHolder) -> Unit)? = null
+  private var onViewAttachedToWindow: ((holder: VH) -> Unit)? = null
 
-  private var onViewDetachedFromWindow: ((holder: KlasterViewHolder) -> Unit)? = null
+  private var onViewDetachedFromWindow: ((holder: VH) -> Unit)? = null
 
-  private var onFailedToRecycleView: ((holder: KlasterViewHolder) -> Boolean)? = null
+  private var onFailedToRecycleView: ((holder: VH) -> Boolean)? = null
 
-  private var onViewRecycled: ((holder: KlasterViewHolder) -> Unit)? = null
+  private var onViewRecycled: ((holder: VH) -> Unit)? = null
 
   private var registerAdapterDataObserver: ((observer: RecyclerView.AdapterDataObserver) -> Unit)? = null
 
   private var unregisterAdapterDataObserver: ((observer: RecyclerView.AdapterDataObserver) -> Unit)? = null
 
   /**
-   * Specify the layout id to be used to create new views.
-   *
-   * For adapters with single view type.
-   *
-   * @param initView a function to be called on the view after it was created. Default value is
-   * and empty function.
+   * Specify a function to be used as [RecyclerView.Adapter.onCreateViewHolder].
    */
-  fun view(@LayoutRes viewResId: Int, layoutInflater: LayoutInflater, initView: View.() -> Unit = {}): StekkerBuilder {
-    viewBuilder = { parent: ViewGroup, _: Int ->
-      layoutInflater.inflate(viewResId, parent, false).apply(initView)
+  fun viewHolder(createViewHolder: (viewType: Int, parent: ViewGroup) -> VH): StekkerBuilderWithViewHolder<VH> {
+    viewHolderBuilder = { parent: ViewGroup, viewType: Int ->
+      createViewHolder(viewType, parent)
     }
 
-    return this
-  }
-
-  /**
-   * Specify the function to be used to create views.
-   *
-   * For adapters with single view type.
-   */
-  fun viewBy(createView: () -> View): StekkerBuilder {
-    viewBuilder = { _: ViewGroup, _: Int ->
-      createView()
-    }
-
-    return this
-  }
-
-  /**
-   * Specify the function to be used to create views. For the cases when you need the
-   * parent parameter received in [RecyclerView.Adapter.onCreateViewHolder].
-   *
-   * For adapters with single view type.
-   */
-  fun view(createView: (parent: ViewGroup) -> View): StekkerBuilder {
-    viewBuilder = { parent: ViewGroup, _: Int ->
-      createView(parent)
-    }
-
-    return this
-  }
-
-  /**
-   * Specify the function to be used to create views.
-   *
-   * For adapters with multiple view types.
-   */
-  fun view(createView: (viewType: Int, parent: ViewGroup) -> View): StekkerBuilder {
-    viewBuilder = { parent: ViewGroup, viewType: Int -> createView(viewType, parent) }
     return this
   }
 
   /**
    * Specify a function to be used as [RecyclerView.Adapter.getItemCount].
    */
-  fun itemCount(getItemsCount: (() -> Int)): StekkerBuilder {
+  fun itemCount(getItemsCount: (() -> Int)): StekkerBuilderWithViewHolder<VH> {
     this.getItemCount = getItemsCount
     return this
   }
@@ -105,7 +63,7 @@ class StekkerBuilder {
   /**
    * Specify a number to be used as a return values from [RecyclerView.Adapter.getItemCount].
    */
-  fun itemCount(count: Int): StekkerBuilder {
+  fun itemCount(count: Int): StekkerBuilderWithViewHolder<VH> {
     this.getItemCount = { count }
     return this
   }
@@ -113,7 +71,7 @@ class StekkerBuilder {
   /**
    * Specify a function to be used as [RecyclerView.Adapter.onBindViewHolder].
    */
-  fun bind(binder: KlasterViewHolder.(position: Int) -> Unit): StekkerBuilder {
+  fun bind(binder: VH.(position: Int) -> Unit): StekkerBuilderWithViewHolder<VH> {
     this.binder = binder
     return this
   }
@@ -121,7 +79,7 @@ class StekkerBuilder {
   /**
    * Specify a function to be used as onBindViewHolder with payloads.
    */
-  fun bind(binder: KlasterViewHolder.(position: Int, payloads: MutableList<Any>) -> Unit): StekkerBuilder {
+  fun bind(binder: VH.(position: Int, payloads: MutableList<Any>) -> Unit): StekkerBuilderWithViewHolder<VH> {
     this.binderWithPayloads = binder
     return this
   }
@@ -129,7 +87,7 @@ class StekkerBuilder {
   /**
    * Specify a function to be used as [RecyclerView.Adapter.getItemId].
    */
-  fun getItemId(getItemId: (position: Int) -> Long): StekkerBuilder {
+  fun getItemId(getItemId: (position: Int) -> Long): StekkerBuilderWithViewHolder<VH> {
     this.getItemId = getItemId
     return this
   }
@@ -137,7 +95,7 @@ class StekkerBuilder {
   /**
    * Specify a function to be used as [RecyclerView.Adapter.getItemViewType].
    */
-  fun getItemViewType(getItemViewType: (Int) -> Int): StekkerBuilder {
+  fun getItemViewType(getItemViewType: (Int) -> Int): StekkerBuilderWithViewHolder<VH> {
     this.getItemViewType = getItemViewType
     return this
   }
@@ -145,7 +103,7 @@ class StekkerBuilder {
   /**
    * Specify a function to be used as [RecyclerView.Adapter.setHasStableIds].
    */
-  fun setHasStableIds(setHasStableIds: () -> Unit): StekkerBuilder {
+  fun setHasStableIds(setHasStableIds: () -> Unit): StekkerBuilderWithViewHolder<VH> {
     this.setHasStableIds = setHasStableIds
     return this
   }
@@ -153,7 +111,7 @@ class StekkerBuilder {
   /**
    * Specify a function to be used as [RecyclerView.Adapter.onAttachedToRecyclerView].
    */
-  fun onAttachedToRecyclerView(onAttachedToRecyclerView: (recyclerView: RecyclerView) -> Unit): StekkerBuilder {
+  fun onAttachedToRecyclerView(onAttachedToRecyclerView: (recyclerView: RecyclerView) -> Unit): StekkerBuilderWithViewHolder<VH> {
     this.onAttachedToRecyclerView = onAttachedToRecyclerView
     return this
   }
@@ -161,7 +119,7 @@ class StekkerBuilder {
   /**
    * Specify a function to be used as [RecyclerView.Adapter.onDetachedFromRecyclerView].
    */
-  fun onDetachedFromRecyclerView(onDetachedFromRecyclerView: (recyclerView: RecyclerView) -> Unit): StekkerBuilder {
+  fun onDetachedFromRecyclerView(onDetachedFromRecyclerView: (recyclerView: RecyclerView) -> Unit): StekkerBuilderWithViewHolder<VH> {
     this.onDetachedFromRecyclerView = onDetachedFromRecyclerView
     return this
   }
@@ -169,7 +127,7 @@ class StekkerBuilder {
   /**
    * Specify a function to be used as [RecyclerView.Adapter.onViewAttachedToWindow].
    */
-  fun onViewAttachedToWindow(onViewAttachedToWindow: (holder: KlasterViewHolder) -> Unit): StekkerBuilder {
+  fun onViewAttachedToWindow(onViewAttachedToWindow: (holder: VH) -> Unit): StekkerBuilderWithViewHolder<VH> {
     this.onViewAttachedToWindow = onViewAttachedToWindow
     return this
   }
@@ -177,7 +135,7 @@ class StekkerBuilder {
   /**
    * Specify a function to be used as [RecyclerView.Adapter.onViewDetachedFromWindow].
    */
-  fun onViewDetachedFromWindow(onViewDetachedFromWindow: (holder: KlasterViewHolder) -> Unit): StekkerBuilder {
+  fun onViewDetachedFromWindow(onViewDetachedFromWindow: (holder: VH) -> Unit): StekkerBuilderWithViewHolder<VH> {
     this.onViewDetachedFromWindow = onViewDetachedFromWindow
     return this
   }
@@ -185,7 +143,7 @@ class StekkerBuilder {
   /**
    * Specify a function to be used as [RecyclerView.Adapter.onFailedToRecycleView].
    */
-  fun onFailedToRecycleView(onFailedToRecycleView: (holder: KlasterViewHolder) -> Boolean): StekkerBuilder {
+  fun onFailedToRecycleView(onFailedToRecycleView: (holder: VH) -> Boolean): StekkerBuilderWithViewHolder<VH> {
     this.onFailedToRecycleView = onFailedToRecycleView
     return this
   }
@@ -193,7 +151,7 @@ class StekkerBuilder {
   /**
    * Specify a function to be used as [RecyclerView.Adapter.onViewRecycled].
    */
-  fun onViewRecycled(onViewRecycled: (holder: KlasterViewHolder) -> Unit): StekkerBuilder {
+  fun onViewRecycled(onViewRecycled: (holder: VH) -> Unit): StekkerBuilderWithViewHolder<VH> {
     this.onViewRecycled = onViewRecycled
     return this
   }
@@ -201,7 +159,7 @@ class StekkerBuilder {
   /**
    * Specify a function to be used as [RecyclerView.Adapter.registerAdapterDataObserver].
    */
-  fun registerAdapterDataObserver(registerAdapterDataObserver: (observer: RecyclerView.AdapterDataObserver) -> Unit): StekkerBuilder {
+  fun registerAdapterDataObserver(registerAdapterDataObserver: (observer: RecyclerView.AdapterDataObserver) -> Unit): StekkerBuilderWithViewHolder<VH> {
     this.registerAdapterDataObserver = registerAdapterDataObserver
     return this
   }
@@ -209,7 +167,7 @@ class StekkerBuilder {
   /**
    * Specify a function to be used as [RecyclerView.Adapter.unregisterAdapterDataObserver].
    */
-  fun unregisterAdapterDataObserver(unregisterAdapterDataObserver: (observer: RecyclerView.AdapterDataObserver) -> Unit): StekkerBuilder {
+  fun unregisterAdapterDataObserver(unregisterAdapterDataObserver: (observer: RecyclerView.AdapterDataObserver) -> Unit): StekkerBuilderWithViewHolder<VH> {
     this.unregisterAdapterDataObserver = unregisterAdapterDataObserver
     return this
   }
@@ -219,15 +177,13 @@ class StekkerBuilder {
    */
   fun build(): RecyclerView.Adapter<RecyclerView.ViewHolder> {
     if (getItemCount == null) throw StekkerException("Get items count function must be provided.")
-    if (viewBuilder == null) throw StekkerException("View builder must be provided.")
-    if (binder == null) throw StekkerException("'bind()' must be set.")
+    if (viewHolderBuilder == null) throw StekkerException("View holder builder must be provided.")
+    if (binder == null) throw StekkerException("bind() must be set.")
 
     @Suppress("UNCHECKED_CAST")
     return StekkerAdapter(
       _getItemCount = getItemCount!!,
-      createViewHolder = { viewGroup, viewType ->
-        KlasterViewHolder(viewBuilder!!.invoke(viewGroup, viewType))
-      },
+      createViewHolder = viewHolderBuilder!!,
       bindViewHolder = binder!!,
       bindViewHolderWithPayloads = binderWithPayloads,
       _getItemId = getItemId,

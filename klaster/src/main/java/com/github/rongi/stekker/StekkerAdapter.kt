@@ -1,11 +1,9 @@
 package com.github.rongi.stekker
 
 import android.support.v7.widget.RecyclerView
-import android.view.View
 import android.view.ViewGroup
-import kotlinx.android.extensions.LayoutContainer
 
-class StekkerAdapter<VH : RecyclerView.ViewHolder>(
+internal class StekkerAdapter<VH : RecyclerView.ViewHolder>(
   private val createViewHolder: (parent: ViewGroup, viewType: Int) -> VH,
   private val bindViewHolder: (viewHolder: VH, position: Int) -> Unit,
   private val bindViewHolderWithPayloads: ((viewHolder: VH, position: Int, payloads: MutableList<Any>) -> Unit)?,
@@ -68,5 +66,3 @@ class StekkerAdapter<VH : RecyclerView.ViewHolder>(
     _unregisterAdapterDataObserver?.invoke(observer) ?: super.unregisterAdapterDataObserver(observer)
 
 }
-
-class SimpleViewHolder(override val containerView: View) : RecyclerView.ViewHolder(containerView), LayoutContainer

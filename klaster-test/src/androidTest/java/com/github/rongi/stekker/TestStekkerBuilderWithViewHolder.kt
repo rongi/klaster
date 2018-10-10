@@ -15,7 +15,7 @@ import org.junit.runner.RunWith
 import org.mockito.ArgumentMatchers
 
 @RunWith(AndroidJUnit4::class)
-class TestStekkerWithViewHolderBuilder {
+class TestStekkerBuilderWithViewHolder {
 
   private val appContext = InstrumentationRegistry.getTargetContext()
 
@@ -337,14 +337,14 @@ class TestStekkerWithViewHolderBuilder {
 
 }
 
-private fun StekkerWithViewHolderBuilder<MyViewHolder>.defaultViewHolder(layoutInflater: LayoutInflater): StekkerWithViewHolderBuilder<MyViewHolder> {
+private fun StekkerBuilderWithViewHolder<MyViewHolder>.defaultViewHolder(layoutInflater: LayoutInflater): StekkerBuilderWithViewHolder<MyViewHolder> {
   return this.viewHolder { _, parent ->
     val view = layoutInflater.inflate(R.layout.list_item, parent, false)
     MyViewHolder(view)
   }
 }
 
-private fun StekkerWithViewHolderBuilder<MyViewHolder>.defaultBind(): StekkerWithViewHolderBuilder<MyViewHolder> {
+private fun StekkerBuilderWithViewHolder<MyViewHolder>.defaultBind(): StekkerBuilderWithViewHolder<MyViewHolder> {
   return bind { position ->
     articleTitle.text = "position${position + 1}"
   }
