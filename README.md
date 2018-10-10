@@ -102,6 +102,28 @@ fun <T> KlasterBuilder.bind(items: List<T>, binder: KlasterViewHolder.(item: T, 
     }
 ```
 
+What if you want your adapter to get items from a list that can change? You may want to have an API like this then.
+
+```kotlin
+fun createAdapter(articles: () -> List<Article>, layoutInflater: LayoutInflater) = Klaster.get()
+  .view(R.layout.list_item, layoutInflater)
+  .bind(articles) { article, position ->
+    item_text.text = article.title
+  }
+  .build()
+```
+
+You can get that with this extension function:
+
+```kotlin
+fun <T> KlasterBuilder.bind(items: () -> List<T>, binder: KlasterViewHolder.(item: T, position: Int) -> Unit): KlasterBuilder =
+  this.itemCount { items().size }
+    .bind { position ->
+      val item = items()[position]
+      binder(item, position)
+    }
+```
+
 Download
 ========
 
