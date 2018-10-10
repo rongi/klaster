@@ -1,4 +1,4 @@
-package com.github.rongi.klaster.samples.examples.`fun`
+package com.github.rongi.klaster.samples.examples.functional
 
 import com.github.rongi.klaster.samples.main.model.Article
 

@@ -8,6 +8,7 @@ import com.github.rongi.klaster.samples.R
 import com.github.rongi.klaster.samples.common.init
 import com.github.rongi.klaster.samples.common.launch
 import com.github.rongi.klaster.samples.common.onClick
+import com.github.rongi.klaster.samples.examples.functional.FunctionalExampleActivity
 import com.github.rongi.klaster.samples.examples.generic.GenericExampleActivity
 import com.github.rongi.klaster.samples.examples.simple.SimpleExampleActivity
 import kotlinx.android.synthetic.main.list_item.*
@@ -42,7 +43,7 @@ class MainActivity : AppCompatActivity() {
   private fun onListItemClick(id: String) = when (id) {
     "simple" -> SimpleExampleActivity::class.launch(this)
     "generic" -> GenericExampleActivity::class.launch(this)
-//    "stateful" -> StatefulExampleActivity::class.launch(this)
+    "functional" -> FunctionalExampleActivity::class.launch(this)
     else -> throw IllegalStateException("Unknown id: $id")
   }
 
@@ -55,11 +56,11 @@ class MainActivity : AppCompatActivity() {
       ExampleListItem(
         id = "generic",
         name = "Generic Example"
+      ),
+      ExampleListItem(
+        id = "functional",
+        name = "Functional Example"
       )
-//      ExampleListItem(
-//        id = "stateful",
-//        name = "Stateful Example"
-//      )
     )
   }
 

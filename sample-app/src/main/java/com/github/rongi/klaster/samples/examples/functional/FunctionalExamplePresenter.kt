@@ -1,10 +1,10 @@
-package com.github.rongi.klaster.samples.examples.`fun`
+package com.github.rongi.klaster.samples.examples.functional
 
 import com.github.rongi.klaster.samples.main.data.ArticlesProvider
 import com.github.rongi.klaster.samples.main.model.Article
 
-class FunExamplePresenter(
-  private val view: FunExampleView,
+class FunctionalExamplePresenter(
+  private val view: FunctionalExampleView,
   private val articlesProvider: ArticlesProvider,
   private val listPresenter: ListPresenter
 ) {

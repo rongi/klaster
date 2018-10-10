@@ -35,7 +35,7 @@
             />
 
         <activity
-            android:name="com.github.rongi.klaster.samples.examples.fun.FunExampleActivity"
+            android:name="com.github.rongi.klaster.samples.examples.functional.FunctionalExampleActivity"
             android:label="@string/simple_example_activity_title"
             />
 
