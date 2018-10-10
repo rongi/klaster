@@ -1,4 +1,4 @@
-[![](https://jitpack.io/v/rongi/stekker.svg)](https://jitpack.io/#rongi/stekker)
+[![](https://jitpack.io/v/rongi/klaster.svg)](https://jitpack.io/#rongi/klaster)
 
 # Declare RecyclerView adapters without boilerplate
 
