@@ -19,7 +19,7 @@ private fun articlesAdapter() = Klaster.withViewHolder<MyViewHolder>()
   .build()
 ```
 
-The same solution with subclassing will look like this.
+Instead of this.
 
 ```java
 private class ArticlesAdapter(
