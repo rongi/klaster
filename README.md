@@ -37,6 +37,6 @@ allprojects {
 
 ```groovy
 dependencies {
-    implementation 'com.github.rongi.klaster:klaster:0.2.0'
+    implementation 'com.github.rongi.klaster:klaster:0.3.0'
 }
 ```
