@@ -3,7 +3,7 @@
 # Declare RecyclerView adapters without boilerplate
 
 ```kotlin
-private fun createAdapter() = Klaster.withViewHolder<MyViewHolder>()
+private fun articlesAdapter() = Klaster.withViewHolder<MyViewHolder>()
   .itemCount { articles.size }
   .viewHolder { _, parent ->
     val view = layoutInflater.inflate(R.layout.list_item, parent, false)
@@ -20,7 +20,7 @@ Instead of
 
 ```java
 private class ArticlesAdapter(
-  val layoutInflater: LayoutInflater
+  private val layoutInflater: LayoutInflater
 ) : RecyclerView.Adapter<ArticlesViewHolder>() {
 
   private class ArticlesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
