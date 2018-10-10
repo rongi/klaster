@@ -25,7 +25,7 @@ private fun createAdapter() = Klaster.get()
   .build()
 ```
 
-## With custom `ViewHolder`
+## With a custom `ViewHolder`
 
 ```kotlin
 private fun createAdapter() = Klaster.withViewHolder<MyViewHolder>()
