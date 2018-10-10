@@ -26,10 +26,6 @@ private class ArticlesAdapter(
   private val layoutInflater: LayoutInflater
 ) : RecyclerView.Adapter<ArticlesViewHolder>() {
 
-  private class ArticlesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-    val articleTitle: TextView = itemView.findViewById(R.id.item_text)
-  }
-
   val onItemClick: (() -> Unit)? = null
 
   override fun getItemCount(): Int {
@@ -45,6 +41,10 @@ private class ArticlesAdapter(
     val article = articles[position]
     holder.articleTitle.text = article.title
     holder.itemView.onClick = { onItemClick?.invoke() }
+  }
+
+  private class ArticlesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    val articleTitle: TextView = itemView.findViewById(R.id.item_text)
   }
 
 }
