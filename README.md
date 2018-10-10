@@ -1,6 +1,6 @@
 [![](https://jitpack.io/v/rongi/stekker.svg)](https://jitpack.io/#rongi/stekker)
 
-# Declare RecyclerView adapters in functional way.
+# Declare RecyclerView adapters in functional way
 
 Make RecyclerView adapters without declaring new classes. Provide only necessary stuff. Usually, it's just three functions (get item count, create view/view holder and bind view holder) instead of subclassing. You no longer have to spam useless adapter classes each time you need a trivial adapter. It's functional and Kotlin-friendly.
 
