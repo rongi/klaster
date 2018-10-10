@@ -47,7 +47,7 @@ private class ArticlesAdapter(
 }
 ```
 
-Ever wondered why you need to declare an extra class for each of your adapters when essentially an adapter is just two function combined together: `onCreateViewHolder()` and `onBindViewHolder()`? Why can't we have something that takes these two functions and construct a proper adapter for us? Well, you can with this library. And with the power of Kotlin Android Extesions you don't even need to create `ViewHolder` classes anymore.
+Ever wondered why you need to declare an extra class for each of your adapters when essentially an adapter is just two function combined together: `onCreateViewHolder()` and `onBindViewHolder()`? Why can't we have something that takes these two functions and construct a proper adapter for us? Well, you can with this library. And with the power of Kotlin Android Extensions, you don't even need to create `ViewHolder` classes anymore.
 
 This library doesn't compromise on flexibility and doesn't hide stuff from you. If it's possible to do something by declaring a new adapter class, it's possible to do it with this library. It's just a more concise way to declare RecyclerView adapters. 
 
@@ -89,7 +89,7 @@ private fun createAdapter() = Klaster.withViewHolder<MyViewHolder>()
 
 ## Functional way to create adapters
 
-This function creates an adapter backed by a simple `List` of item. It returns a `ListPresenter` interface, which is just a single function to change this list.
+This function creates an adapter backed by a simple `List` of items. It returns a `ListPresenter` interface, which is just a single function to change this list.
 
 ```kotlin
 interface ListPresenter {
@@ -125,7 +125,7 @@ private fun createAdapter(
 
 ## Create your own extensions
 
-You can tailor the builder for you needs by creating your own, even more elegant APIs using Kotlin extension functions. For example, if you want to create an adapter for a `List` of items that never change, then you may want to have an API like this (notice no `itemCount()` function).
+You can tailor the builder for your needs by creating your own, even more elegant APIs using Kotlin extension functions. For example, if you want to create an adapter for a `List` of items that never change, then you may want to have an API like this (notice no `itemCount()` function).
 
 ```kotlin
 fun createAdapter(articles: List<Article>, layoutInflater: LayoutInflater) = Klaster.get()
@@ -158,7 +158,7 @@ fun createAdapter(articles: () -> List<Article>, layoutInflater: LayoutInflater)
   .build()
 ```
 
-You can get that with this extension function:
+You can get that with this extension function.
 
 ```kotlin
 fun <T> KlasterBuilder.bind(items: () -> List<T>, binder: KlasterViewHolder.(item: T, position: Int) -> Unit): KlasterBuilder =
