@@ -3,7 +3,7 @@ package com.github.rongi.klaster.samples.examples.generic
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.RecyclerView
-import com.github.rongi.stekker.Stekker
+import com.github.rongi.klaster.Klaster
 import com.github.rongi.klaster.samples.R
 import com.github.rongi.klaster.samples.common.init
 import com.github.rongi.klaster.samples.common.onClick
@@ -36,7 +36,7 @@ class GenericExampleActivity : AppCompatActivity(), GenericExampleView {
     presenter.onViewCreated()
   }
 
-  private fun createAdapter() = Stekker.withViewHolder<MyViewHolder>()
+  private fun createAdapter() = Klaster.withViewHolder<MyViewHolder>()
     .itemCount { articles.size }
     .viewHolder { _, parent ->
       val view = layoutInflater.inflate(R.layout.list_item, parent, false)

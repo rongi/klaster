@@ -10,7 +10,7 @@ import com.github.rongi.klaster.samples.common.onClick
 import com.github.rongi.klaster.samples.common.toast
 import com.github.rongi.klaster.samples.main.data.ArticlesProvider
 import com.github.rongi.klaster.samples.main.model.Article
-import com.github.rongi.stekker.Stekker
+import com.github.rongi.klaster.Klaster
 import kotlinx.android.synthetic.main.list_item.*
 import kotlinx.android.synthetic.main.recycler_view_activity.*
 
@@ -50,7 +50,7 @@ private fun createAdapter(
 ): Pair<RecyclerView.Adapter<*>, ListPresenter> {
   var articles: List<Article> = emptyList()
 
-  val adapter = Stekker.get()
+  val adapter = Klaster.get()
     .itemCount { articles.size }
     .view(R.layout.list_item, layoutInflater)
     .bind { position ->

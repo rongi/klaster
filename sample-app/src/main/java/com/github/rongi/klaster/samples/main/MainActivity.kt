@@ -3,7 +3,7 @@ package com.github.rongi.klaster.samples.main
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.RecyclerView
-import com.github.rongi.stekker.Stekker
+import com.github.rongi.klaster.Klaster
 import com.github.rongi.klaster.samples.R
 import com.github.rongi.klaster.samples.common.init
 import com.github.rongi.klaster.samples.common.launch
@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
 
     val items = listItems().toMutableList()
 
-    adapter = Stekker.get()
+    adapter = Klaster.get()
       .itemCount(items.size)
       .view(R.layout.list_item, layoutInflater)
       .bind { position ->

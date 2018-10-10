@@ -3,13 +3,13 @@ package com.github.rongi.klaster.samples.examples.simple
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.RecyclerView
+import com.github.rongi.klaster.Klaster
 import com.github.rongi.klaster.samples.R
 import com.github.rongi.klaster.samples.common.init
 import com.github.rongi.klaster.samples.common.onClick
 import com.github.rongi.klaster.samples.common.toast
 import com.github.rongi.klaster.samples.main.data.ArticlesProvider
 import com.github.rongi.klaster.samples.main.model.Article
-import com.github.rongi.stekker.Stekker
 import kotlinx.android.synthetic.main.list_item.*
 import kotlinx.android.synthetic.main.recycler_view_activity.*
 
@@ -46,7 +46,7 @@ class SimpleExampleActivity : AppCompatActivity(), SimpleExampleView {
     message.toast(this)
   }
 
-  private fun createAdapter() = Stekker.get()
+  private fun createAdapter() = Klaster.get()
     .itemCount { articles.size }
     .view(R.layout.list_item, layoutInflater)
     .bind { position ->
