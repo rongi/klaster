@@ -1,6 +1,6 @@
 [![](https://jitpack.io/v/rongi/klaster.svg)](https://jitpack.io/#rongi/klaster)
 
-# Declare RecyclerView adapters without boilerplate
+# Declare RecyclerView adapters without boilerplate and extra classes
 
 Like this.
 
