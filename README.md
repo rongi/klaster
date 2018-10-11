@@ -122,7 +122,7 @@ fun createAdapter(layoutInflater: LayoutInflater) = Klaster.get()
 
 ## Functional way to create adapters
 
-This is an example of how this library can be used to create adapters in a beautiful functional way without any subclassing.
+This is an example of how this library can be used to create adapters in a clean and beautiful functional way without any subclassing.
 
 Function `createAdapter()` returns two things. 
 
