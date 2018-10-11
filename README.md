@@ -16,7 +16,7 @@ private fun articlesAdapter() = Klaster.get()
   .build()
 ```
 
-The same adapter declared the usual way
+The same adapter declared by sublassing
 
 ```java
 private class ArticlesAdapter(
