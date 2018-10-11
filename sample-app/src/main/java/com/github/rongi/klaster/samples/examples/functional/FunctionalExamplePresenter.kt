@@ -6,14 +6,14 @@ import com.github.rongi.klaster.samples.main.model.Article
 class FunctionalExamplePresenter(
   private val view: FunctionalExampleView,
   private val articlesProvider: ArticlesProvider,
-  private val listPresenter: ListPresenter
+  private val listViewPresenter: ListViewPresenter
 ) {
 
   private var articles: List<Article> = emptyList()
 
   fun onViewCreated() {
     articles = articlesProvider.getArticles()
-    listPresenter.setItems(articles.toList())
+    listViewPresenter.setItems(articles.toList())
   }
 
   fun onArticleClick(article: Article) {

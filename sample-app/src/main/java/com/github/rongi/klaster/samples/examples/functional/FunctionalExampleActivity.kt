@@ -33,7 +33,7 @@ class FunctionalExampleActivity : AppCompatActivity(), FunctionalExampleView {
     presenter = FunctionalExamplePresenter(
       view = this,
       articlesProvider = ArticlesProvider,
-      listPresenter = listPresenter
+      listViewPresenter = listPresenter
     )
     presenter.onViewCreated()
   }
@@ -47,7 +47,7 @@ class FunctionalExampleActivity : AppCompatActivity(), FunctionalExampleView {
 private fun createAdapter(
   layoutInflater: LayoutInflater,
   onItemClick: (Article) -> Unit
-): Pair<RecyclerView.Adapter<*>, ListPresenter> {
+): Pair<RecyclerView.Adapter<*>, ListViewPresenter> {
   var articles: List<Article> = emptyList()
 
   val adapter = Klaster.get()
@@ -60,7 +60,7 @@ private fun createAdapter(
     }
     .build()
 
-  val presenter = object : ListPresenter {
+  val presenter = object : ListViewPresenter {
     override fun setItems(items: List<Article>) {
       articles = items
       adapter.notifyDataSetChanged()
@@ -70,6 +70,6 @@ private fun createAdapter(
   return adapter to presenter
 }
 
-interface ListPresenter {
+interface ListViewPresenter {
   fun setItems(items: List<Article>)
 }
