@@ -87,6 +87,39 @@ private fun createAdapter() = Klaster.withViewHolder<MyViewHolder>()
   .build()
 ```
 
+## But what if I need to overload more functions?
+
+With this builder you can "overload" any function you can overload in `RecyclerView.Adapter`.
+
+```kotlin
+fun createAdapter(layoutInflater: LayoutInflater) = Klaster.get()
+  .itemCount { articles.size }
+  .getItemViewType { position -> position % 2 }
+  .view { viewType, parent ->
+    when (viewType) {
+      ITEM_TYPE_1 -> layoutInflater.inflate(R.layout.list_item1, parent, false)
+      ITEM_TYPE_2 -> layoutInflater.inflate(R.layout.list_item2, parent, false)
+      else -> throw IllegalStateException("Unknown type: $viewType")
+    }
+  }
+  .bind { position ->
+    val article = articles[position]
+    item_text.text = article.title
+  }
+  .bind { position, payloads -> }
+  .getItemId {  }
+  .setHasStableIds {  }
+  .onAttachedToRecyclerView {  }
+  .onDetachedFromRecyclerView {  }
+  .registerAdapterDataObserver {  }
+  .unregisterAdapterDataObserver {  }
+  .onFailedToRecycleView {  }
+  .onViewAttachedToWindow {  }
+  .onViewDetachedFromWindow {  }
+  .onViewRecycled {  }
+  .build()
+```
+
 ## Functional way to create adapters
 
 This function creates an adapter backed by a simple `List` of items. It returns a `ListPresenter` interface, which is just a single function to change this list.
