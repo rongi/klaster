@@ -89,7 +89,7 @@ private fun createAdapter() = Klaster.withViewHolder<MyViewHolder>()
 
 ## But what if I need to overload more functions?
 
-With this builder you can "overload" any function you can overload in `RecyclerView.Adapter`.
+With this builder you can "overload" any function you can overload by subclassing `RecyclerView.Adapter`.
 
 ```kotlin
 fun createAdapter(layoutInflater: LayoutInflater) = Klaster.get()
