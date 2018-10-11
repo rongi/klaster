@@ -2,7 +2,7 @@
 
 # Declare RecyclerView adapters without boilerplate
 
-Like this.
+Like this
 
 ```kotlin
 private fun articlesAdapter() = Klaster.get()
@@ -16,7 +16,7 @@ private fun articlesAdapter() = Klaster.get()
   .build()
 ```
 
-Instead of this.
+instead of this
 
 ```java
 private class ArticlesAdapter(
