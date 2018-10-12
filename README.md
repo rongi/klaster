@@ -163,7 +163,7 @@ interface ListViewPresenter {
 
 ## Create your own extensions
 
-You can tailor the builder for your needs by creating your own, even more elegant APIs using Kotlin extension functions. For example, if you want to create an adapter for a `List` of items that never change, then you may want to have something like this (notice no `itemCount()` function).
+You can tailor the builder for your needs by creating your own, even more elegant APIs using Kotlin extension functions. For example, if you want to create an adapter for a `List` of items that never change, then you may want to have a builder that can do things like this (notice no `itemCount()` function).
 
 ```kotlin
 fun createAdapter(articles: List<Article>, layoutInflater: LayoutInflater) = Klaster.get()
@@ -174,7 +174,7 @@ fun createAdapter(articles: List<Article>, layoutInflater: LayoutInflater) = Kla
   .build()
 ```
 
-You can have it with an extension function like this.
+You can achieve it with this extension function.
 
 ```kotlin
 fun <T> KlasterBuilder.bind(items: List<T>, binder: KlasterViewHolder.(item: T, position: Int) -> Unit): KlasterBuilder =
@@ -185,7 +185,7 @@ fun <T> KlasterBuilder.bind(items: List<T>, binder: KlasterViewHolder.(item: T, 
     }
 ```
 
-What if you want your adapter to get items from a list that can change? You may want to have an API like this then.
+What if you want your adapter to get items from a list that can change? You may want to have a builder that can do this then.
 
 ```kotlin
 fun createAdapter(articles: () -> List<Article>, layoutInflater: LayoutInflater) = Klaster.get()
