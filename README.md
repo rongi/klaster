@@ -221,6 +221,6 @@ allprojects {
 
 ```groovy
 dependencies {
-    implementation 'com.github.rongi:klaster:0.3.0'
+    implementation 'com.github.rongi:klaster:0.3.2'
 }
 ```
