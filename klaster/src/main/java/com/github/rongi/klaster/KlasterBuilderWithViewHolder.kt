@@ -9,7 +9,7 @@ import android.view.ViewGroup
  *
  * It is intended for the cases when you need a custom [ViewHolder].
  */
-class KlasterBuilderWithViewHolder<VH : RecyclerView.ViewHolder> {
+class KlasterBuilderWithViewHolder<VH : RecyclerView.ViewHolder> internal constructor() {
 
   private var viewHolderBuilder: ((parent: ViewGroup, viewType: Int) -> VH)? = null
 

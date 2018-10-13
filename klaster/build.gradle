@@ -1,6 +1,23 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath "org.jetbrains.dokka:dokka-android-gradle-plugin:0.9.17"
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
+    }
+}
+
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+// To generate javadoc from Kotlin files.
+apply plugin: 'org.jetbrains.dokka-android'
+// To see javadoc on jitpack.
+apply plugin: 'com.github.dcendents.android-maven'
+
+group = 'com.github.rongi'
 
 android {
     compileSdkVersion 27
@@ -26,6 +43,37 @@ dependencies {
     implementation 'com.android.support:appcompat-v7:27.1.1'
     implementation 'com.android.support:recyclerview-v7:27.1.1'
 }
+
+// To see javadocs on jitpack - START
+
+// Build a jar with source files.
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+
+task javadoc(type: org.jetbrains.dokka.gradle.DokkaTask) {
+//    failOnError false
+//    source = android.sourceSets.main.java.sourceFiles
+//    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+//    classpath += configurations.compile
+    outputFormat = 'javadoc'
+    outputDirectory = "$buildDir/docs/javadoc"
+    sourceDirs = files('src/main/java')
+}
+
+// Build a jar with javadoc.
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.outputDirectory
+}
+
+artifacts {
+    archives sourcesJar
+    archives javadocJar
+}
+
+// To see javadocs on jitpack - END
 
 repositories {
     mavenCentral()

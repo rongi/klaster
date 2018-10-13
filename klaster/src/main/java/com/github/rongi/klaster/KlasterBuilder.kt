@@ -9,7 +9,7 @@ import android.view.ViewGroup
 /**
  * A builder to make [RecyclerView.Adapter] objects.
  */
-class KlasterBuilder {
+class KlasterBuilder internal constructor() {
 
   private var viewBuilder: ((parent: ViewGroup, viewType: Int) -> View)? = null
 
