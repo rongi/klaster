@@ -2,7 +2,14 @@ package com.github.rongi.klaster
 
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.RecyclerView.ViewHolder
+import com.github.rongi.klaster.Klaster.get
+import com.github.rongi.klaster.Klaster.withViewHolder
 
+/**
+ * Use [get] to build adapters.
+ *
+ * Use [withViewHolder] to build adapters using your own implementation of [ViewHolder].
+ */
 object Klaster {
 
   /**
