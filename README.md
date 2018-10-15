@@ -126,7 +126,7 @@ This is an example of how this library can be used to create adapters in a clean
 
 Function `createAdapter()` creates an adapter backed by a simple `List` of items. This function returns two things:
 
-1. A `RecyclerView.Adapter`, which you can give to you `RecyclerView`.
+1. A `RecyclerView.Adapter`, which you can give to your `RecyclerView`.
 2. A `ListViewPresenter` interface. This interface you can use to update contents of your adapter, it has single method that replaces all the items in the adapter with the new ones.
 
 ```kotlin
