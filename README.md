@@ -203,7 +203,7 @@ interface ListViewPresenter {
 }
 ```
 
-Why is this preferred over inheritance? Because it's simpler (less interweaved) and you can achieve a better separation of concerns this way. For example `ListPresenter` can be extracted from this function and reused for all other cases where the adapter is backed by a `List`.
+Why is this preferred over inheritance? Because it's simpler (less interweaved) and you can achieve a better separation of concerns this way. For example `ListViewPresenter` implementation can be extracted from this function and reused for all other cases where the adapter is backed by a `List`.
 
 ## Create your own extensions
 
