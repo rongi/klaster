@@ -70,6 +70,48 @@ private fun createAdapter() = Klaster.get()
   .build()
 ```
 
+This is how it will look like inside an `Activity`.
+
+```kotlin
+class SimpleExampleActivity : AppCompatActivity(), SimpleExampleView {
+
+  private lateinit var adapter: RecyclerView.Adapter<*>
+
+  private lateinit var presenter: SimpleExamplePresenter
+
+  private var articles: List<Article> = emptyList()
+
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    setContentView(R.layout.recycler_view_activity)
+    recycler_view.init(this)
+
+    adapter = createAdapter()
+
+    recycler_view.adapter = adapter
+
+    presenter = SimpleExamplePresenter(view = this)
+    presenter.onViewCreated()
+  }
+
+  override fun showArticles(articles: List<Article>) {
+    this.articles = articles
+    adapter.notifyDataSetChanged()
+  }
+
+  private fun createAdapter() = Klaster.get()
+    .itemCount { articles.size }
+    .view(R.layout.list_item, layoutInflater)
+    .bind { position ->
+      val article = articles[position]
+      item_text.text = article.title
+      itemView.onClick = { presenter.onArticleClick(article) }
+    }
+    .build()
+
+}
+```
+
 ## With a custom `ViewHolder`
 
 ```kotlin
