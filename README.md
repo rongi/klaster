@@ -164,12 +164,12 @@ fun createAdapter(layoutInflater: LayoutInflater) = Klaster.get()
 
 ## Functional way to create adapters
 
-This is an example of how this library can be used to create adapters in a clean and beautiful functional way without any subclassing.
+But does list of items really belong to the `Activity`? Can I achieve better separation of concerns using this library? Yes, and here is an example of how it can be done in a clean and beautiful functional way without using inheritance.
 
-Function `createAdapter()` creates an adapter backed by a simple `List` of items. This function returns two things:
+The function defined below, `createAdapter()`, creates an adapter backed by a simple `List` of items. This function returns two things:
 
 1. A `RecyclerView.Adapter`, which you can give to your `RecyclerView`.
-2. A `ListViewPresenter` interface. This interface you can use to update contents of your adapter, it has a single method that replaces all the items in the adapter with the new ones.
+2. A `ListViewPresenter` interface. This interface you can use to update contents of your adapter, it has a single method that replaces all the items in the adapter with the new ones. You can even pass this presenter into your main presenter as a dependency.
 
 ```kotlin
 private fun createAdapter(
@@ -188,7 +188,7 @@ private fun createAdapter(
     }
     .build()
 
-  val listViewPresenter = object : ListPresenter {
+  val listViewPresenter = object : ListViewPresenter {
     override fun setItems(items: List<Article>) {
       articles = items
       adapter.notifyDataSetChanged()
