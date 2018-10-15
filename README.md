@@ -164,7 +164,7 @@ fun createAdapter(layoutInflater: LayoutInflater) = Klaster.get()
 
 ## Functional way to create adapters
 
-But does list of items really belong to the `Activity`? Can I achieve better separation of concerns using this library? Yes, and here is an example of how it can be done in a clean and beautiful functional way without using inheritance.
+But does list of items really belong to the `Activity`? Can I achieve better separation of concerns using this library? Yes, and here is an example of how it can be done in a clean and beautiful functional way without subclassing.
 
 The function defined below, `createAdapter()`, creates an adapter backed by a simple `List` of items. This function returns two things:
 
