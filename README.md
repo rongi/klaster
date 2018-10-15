@@ -16,7 +16,7 @@ private fun articlesAdapter() = Klaster.get()
   .build()
 ```
 
-The same adapter declared by sublassing:
+The same adapter declared by subclassing:
 
 ```java
 private class ArticlesAdapter(
@@ -89,7 +89,7 @@ private fun createAdapter() = Klaster.withViewHolder<MyViewHolder>()
 
 ## But what if I need to overload more functions?
 
-With this builder you can "overload" any function you can overload by subclassing `RecyclerView.Adapter`.
+With this builder, you can "overload" any function you can overload by subclassing `RecyclerView.Adapter`.
 
 ```kotlin
 fun createAdapter(layoutInflater: LayoutInflater) = Klaster.get()
@@ -127,7 +127,7 @@ This is an example of how this library can be used to create adapters in a clean
 Function `createAdapter()` creates an adapter backed by a simple `List` of items. This function returns two things:
 
 1. A `RecyclerView.Adapter`, which you can give to your `RecyclerView`.
-2. A `ListViewPresenter` interface. This interface you can use to update contents of your adapter, it has single method that replaces all the items in the adapter with the new ones.
+2. A `ListViewPresenter` interface. This interface you can use to update contents of your adapter, it has a single method that replaces all the items in the adapter with the new ones.
 
 ```kotlin
 private fun createAdapter(
@@ -161,7 +161,7 @@ interface ListViewPresenter {
 }
 ```
 
-Why is this preferred over inheritance? Because it's simpler (less interweaved) and you can achieve better separation of concerns this way. For example `ListPresenter` can be extracted from this function and reused for all other cases where adapter is backed by a `List`.
+Why is this preferred over inheritance? Because it's simpler (less interweaved) and you can achieve a better separation of concerns this way. For example `ListPresenter` can be extracted from this function and reused for all other cases where the adapter is backed by a `List`.
 
 ## Create your own extensions
 
