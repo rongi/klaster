@@ -70,7 +70,7 @@ private fun createAdapter() = Klaster.get()
   .build()
 ```
 
-This is how it can look like inside an `Activity` implemented in MVP.
+This is how it can look like inside an `Activity` implemented with MVP.
 
 ```kotlin
 class SimpleExampleActivity : AppCompatActivity(), SimpleExampleView {
