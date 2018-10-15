@@ -161,6 +161,8 @@ interface ListViewPresenter {
 }
 ```
 
+Why is this preferred over inheritance? Because it's simpler (less interweaved) and as ryou can achieve better separation of concerns this way. For example `ListPresenter` can be reused for all other cases where adapter is backed by a `List`.
+
 ## Create your own extensions
 
 You can tailor the builder for your needs by creating your own, even more elegant APIs using Kotlin extension functions. For example, if you want to create an adapter for a `List` of items that never change, then you may want to have a builder that can do things like this (notice no `itemCount()` function).
