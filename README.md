@@ -175,7 +175,7 @@ The function defined below, `createAdapter()`, creates an adapter backed by a si
 private fun createAdapter(
   layoutInflater: LayoutInflater,
   onItemClick: (Article) -> Unit
-): Pair<RecyclerView.Adapter<*>, ListPresenter> {
+): Pair<RecyclerView.Adapter<*>, ListViewPresenter> {
   var articles: List<Article> = emptyList()
 
   val adapter = Klaster.get()
