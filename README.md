@@ -115,7 +115,7 @@ class SimpleExampleActivity : AppCompatActivity(), SimpleExampleView {
 ## Multiple view types
 
 ```kotlin
-MultipleViewTypesExampleActivity {
+class MultipleViewTypesExampleActivity : AppCompatActivity(), MultipleViewTypesExampleView {
   // ...
 
   private fun createAdapter() = Klaster.get()
