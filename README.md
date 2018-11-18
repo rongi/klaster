@@ -115,55 +115,60 @@ class SimpleExampleActivity : AppCompatActivity(), SimpleExampleView {
 ## Multiple view types
 
 ```kotlin
-sealed class ListItemViewData
+MultipleViewTypesExampleActivity {
+  // ...
 
-data class HeaderViewData(
-  val headerText: String
-): ListItemViewData()
+  private fun createAdapter() = Klaster.get()
+    .itemCount { listItems.size }
+    .getItemViewType { position ->
+      when (listItems[position]) {
+        is ArticleViewData -> 0
+        is HeaderViewData -> 1
+      }
+    }
+    .view { viewType, parent ->
+      when (viewType) {
+        0 -> layoutInflater.inflate(R.layout.list_item, parent, false)
+        1 -> layoutInflater.inflate(R.layout.header, parent, false)
+        else -> throw IllegalStateException("Unknown view type: $viewType")
+      }
+    }
+    .bind { position ->
+      val listItem = listItems[position]
 
-data class ArticleViewData(
-  val article: Article
-): ListItemViewData()
+      when (listItem) {
+        is ArticleViewData -> {
+          item_text.text = listItem.article.title
+          itemView.onClick = { presenter.onArticleClick(listItem.article) }
+        }
+        is HeaderViewData -> {
+          header_text.text = listItem.headerText
+        }
+      }
+    }
+    .build()
 
-private var listItems: List<ListItemViewData> = emptyList()
+  private var listItems: List<ListItemViewData> = emptyList()
 
-override fun showListItems(listItems: List<ListItemViewData>) {
-  this.listItems = listItems
-  adapter.notifyDataSetChanged()
+  override fun showListItems(listItems: List<ListItemViewData>) {
+    this.listItems = listItems
+    adapter.notifyDataSetChanged()
+  }
+
+  sealed class ListItemViewData
+
+  data class HeaderViewData(
+    val headerText: String
+  ): ListItemViewData()
+
+  data class ArticleViewData(
+    val article: Article
+  ): ListItemViewData()
+
 }
-
-private fun createAdapter() = Klaster.get()
-  .itemCount { listItems.size }
-  .getItemViewType { position ->
-    when (listItems[position]) {
-      is ArticleViewData -> 0
-      is HeaderViewData -> 1
-    }
-  }
-  .view { viewType, parent ->
-    when (viewType) {
-      0 -> layoutInflater.inflate(R.layout.list_item, parent, false)
-      1 -> layoutInflater.inflate(R.layout.header, parent, false)
-      else -> throw IllegalStateException("Unknown view type: $viewType")
-    }
-  }
-  .bind { position ->
-    val listItem = listItems[position]
-
-    when (listItem) {
-      is ArticleViewData -> {
-        item_text.text = listItem.article.title
-        itemView.onClick = { presenter.onArticleClick(listItem.article) }
-      }
-      is HeaderViewData -> {
-        header_text.text = listItem.headerText
-      }
-    }
-  }
-  .build()
 ```
 
-Full example is [here](https://github.com/rongi/klaster/tree/master/sample-app/src/main/java/com/github/rongi/klaster/samples/examples/multipleviewtypes). It's a part of liberarie's sample app.
+Full example is a part of library's sample app and can be found [here](https://github.com/rongi/klaster/tree/master/sample-app/src/main/java/com/github/rongi/klaster/samples/examples/multipleviewtypes).
 
 ## With a custom `ViewHolder`
 
