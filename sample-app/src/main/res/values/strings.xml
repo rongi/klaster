@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Klaster</string>
     <string name="simple_example_activity_title">Simple Example</string>
-    <string name="stateful_example_activity_title">Stateful Example</string>
-    <string name="fun_example_activity_title">Fun Example</string>
+    <string name="fun_example_activity_title">Functional Example</string>
+    <string name="custom_view_holder_example_activity_title">Custom ViewHolder Example</string>
+    <string name="multiple_view_types_example_activity_title">Multiple View Types</string>
 </resources>

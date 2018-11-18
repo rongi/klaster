@@ -26,7 +26,7 @@
 
         <activity
             android:name="com.github.rongi.klaster.samples.examples.customviewholder.CustomViewHolderExampleActivity"
-            android:label="@string/simple_example_activity_title"
+            android:label="@string/custom_view_holder_example_activity_title"
             />
 
         <activity
@@ -36,7 +36,12 @@
 
         <activity
             android:name="com.github.rongi.klaster.samples.examples.functional.FunctionalExampleActivity"
-            android:label="@string/simple_example_activity_title"
+            android:label="@string/fun_example_activity_title"
+            />
+
+        <activity
+            android:name=".examples.multipleviewtypes.MultipleViewTypesExampleActivity"
+            android:label="@string/multiple_view_types_example_activity_title"
             />
 
     </application>
