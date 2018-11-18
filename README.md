@@ -81,7 +81,7 @@ class SimpleExampleActivity : AppCompatActivity(), SimpleExampleView {
 
   private var articles: List<Article> = emptyList()
 
-  override fun onCreate(savedInstanceState: Bundle?) {
+  override fun onCreate(...) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.recycler_view_activity)
     recycler_view.init(this)
