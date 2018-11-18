@@ -26,4 +26,4 @@ object Klaster {
 
 }
 
-class StekkerException(override val message: String) : RuntimeException()
+class KlasterException(override val message: String) : RuntimeException()

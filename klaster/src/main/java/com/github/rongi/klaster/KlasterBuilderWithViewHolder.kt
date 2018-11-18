@@ -176,9 +176,9 @@ class KlasterBuilderWithViewHolder<VH : RecyclerView.ViewHolder> internal constr
    * Create the [RecyclerView.Adapter] instance.
    */
   fun build(): RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    if (getItemCount == null) throw StekkerException("Get items count function must be provided.")
-    if (viewHolderBuilder == null) throw StekkerException("View holder builder must be provided.")
-    if (binder == null) throw StekkerException("bind() must be set.")
+    if (getItemCount == null) throw KlasterException("Get items count function must be provided.")
+    if (viewHolderBuilder == null) throw KlasterException("View holder builder must be provided.")
+    if (binder == null) throw KlasterException("bind() must be set.")
 
     @Suppress("UNCHECKED_CAST")
     return KlasterAdapter(
