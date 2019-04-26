@@ -224,19 +224,19 @@ class TestKlasterBuilder {
 
   @Test
   fun setHasStableIdsWorks() {
-    val mockFunction = mock<(() -> Unit)>()
+    val mockFunction = mock<((Boolean) -> Unit)>()
     val adapter = Klaster.get()
       .itemCount(100)
       .view(R.layout.list_item, layoutInflater)
       .bind { position -> item_text.text = "$position" }
-      .setHasStableIds {
-        mockFunction()
+      .setHasStableIds { hasStableId ->
+        mockFunction(hasStableId)
       }
       .build()
 
     adapter.setHasStableIds(true)
 
-    verify(mockFunction).invoke()
+    verify(mockFunction).invoke(true)
   }
 
   @Test

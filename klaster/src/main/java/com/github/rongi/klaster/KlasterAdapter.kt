@@ -10,7 +10,7 @@ internal class KlasterAdapter<VH : RecyclerView.ViewHolder>(
   private val _getItemCount: () -> Int,
   private val _getItemId: ((position: Int) -> Long)?,
   private val _getItemViewType: ((Int) -> Int)?,
-  private val _setHasStableIds: (() -> Unit)?,
+  private val _setHasStableIds: ((Boolean) -> Unit)?,
   private val _onAttachedToRecyclerView: ((recyclerView: RecyclerView) -> Unit)?,
   private val _onDetachedFromRecyclerView: ((recyclerView: RecyclerView) -> Unit)?,
   private val _onViewAttachedToWindow: ((holder: VH) -> Unit)?,
@@ -39,7 +39,7 @@ internal class KlasterAdapter<VH : RecyclerView.ViewHolder>(
     _getItemViewType?.invoke(position) ?: super.getItemViewType(position)
 
   override fun setHasStableIds(hasStableIds: Boolean): Unit =
-    _setHasStableIds?.invoke() ?: super.setHasStableIds(hasStableIds)
+    _setHasStableIds?.invoke(hasStableIds) ?: super.setHasStableIds(hasStableIds)
 
   override fun onAttachedToRecyclerView(recyclerView: RecyclerView) =
     _onAttachedToRecyclerView?.invoke(recyclerView) ?: super.onAttachedToRecyclerView(recyclerView)

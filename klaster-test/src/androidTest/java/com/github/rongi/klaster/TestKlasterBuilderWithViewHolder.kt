@@ -173,19 +173,19 @@ class TestKlasterBuilderWithViewHolder {
 
   @Test
   fun setHasStableIdsWorks() {
-    val mockFunction = mock<(() -> Unit)>()
+    val mockFunction = mock<((Boolean) -> Unit)>()
     val adapter = Klaster.withViewHolder<MyViewHolder>()
       .itemCount(100)
       .defaultViewHolder(layoutInflater)
       .defaultBind()
-      .setHasStableIds {
-        mockFunction()
+      .setHasStableIds { hasStableIds ->
+        mockFunction(hasStableIds)
       }
       .build()
 
     adapter.setHasStableIds(true)
 
-    verify(mockFunction).invoke()
+    verify(mockFunction).invoke(true)
   }
 
   @Test

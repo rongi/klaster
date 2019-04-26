@@ -23,7 +23,7 @@ class KlasterBuilderWithViewHolder<VH : RecyclerView.ViewHolder> internal constr
 
   private var getItemViewType: ((Int) -> Int)? = null
 
-  private var setHasStableIds: (() -> Unit)? = null
+  private var setHasStableIds: ((Boolean) -> Unit)? = null
 
   private var onAttachedToRecyclerView: ((recyclerView: RecyclerView) -> Unit)? = null
 
@@ -103,7 +103,7 @@ class KlasterBuilderWithViewHolder<VH : RecyclerView.ViewHolder> internal constr
   /**
    * Specify a function to be used as [RecyclerView.Adapter.setHasStableIds].
    */
-  fun setHasStableIds(setHasStableIds: () -> Unit): KlasterBuilderWithViewHolder<VH> {
+  fun setHasStableIds(setHasStableIds: (Boolean) -> Unit): KlasterBuilderWithViewHolder<VH> {
     this.setHasStableIds = setHasStableIds
     return this
   }
