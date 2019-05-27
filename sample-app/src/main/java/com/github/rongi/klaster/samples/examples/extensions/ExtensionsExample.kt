@@ -8,7 +8,7 @@ import kotlinx.android.synthetic.main.list_item.*
 
 fun createAdapter(articles: List<Article>, layoutInflater: LayoutInflater) = Klaster.get()
   .view(R.layout.list_item, layoutInflater)
-  .bind(articles) { article, position ->
+  .bind(articles) { article, _ ->
     item_text.text = article.title
   }
   .build()
@@ -22,7 +22,7 @@ fun <T> KlasterBuilder.bind(items: List<T>, binder: KlasterViewHolder.(item: T, 
 
 fun createAdapter(articles: () -> List<Article>, layoutInflater: LayoutInflater) = Klaster.get()
   .view(R.layout.list_item, layoutInflater)
-  .bind(articles) { article, position ->
+  .bind(articles) { article, _ ->
     item_text.text = article.title
   }
   .build()
