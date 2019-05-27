@@ -25,7 +25,7 @@ fun createAdapter(layoutInflater: LayoutInflater) = Klaster.get()
     val article = articles[position]
     item_text.text = article.title
   }
-  .bind { position, payloads -> }
+  .bind { _, _ -> }
   .getItemId { position -> position.toLong() }
   .setHasStableIds { }
   .onAttachedToRecyclerView { }

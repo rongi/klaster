@@ -384,7 +384,7 @@ class TestKlasterBuilder {
 
     val adapter = Klaster.get()
       .itemCount { items.size }
-      .view { viewType: Int, parent: ViewGroup ->
+      .view { viewType: Int, _: ViewGroup ->
         when (viewType) {
           TYPE1 -> TextView(appContext).apply {
             text = "type 1"

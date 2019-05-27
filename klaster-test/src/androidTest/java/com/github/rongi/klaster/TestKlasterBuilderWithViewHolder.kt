@@ -53,7 +53,7 @@ class TestKlasterBuilderWithViewHolder {
 
     val adapter = Klaster.withViewHolder<MyViewHolder>()
       .itemCount { items.size }
-      .viewHolder { viewType: Int, parent: ViewGroup ->
+      .viewHolder { viewType: Int, _: ViewGroup ->
         when (viewType) {
           TYPE1 -> MyViewHolder(TextView(appContext).apply {
             text = "type 1"

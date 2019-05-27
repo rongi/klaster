@@ -9,7 +9,7 @@ import android.view.ViewGroup
  *
  * It is intended for the cases when you need a custom [ViewHolder].
  */
-class KlasterBuilderWithViewHolder<VH : RecyclerView.ViewHolder> internal constructor() {
+class KlasterBuilderWithViewHolder<VH : ViewHolder> internal constructor() {
 
   private var viewHolderBuilder: ((parent: ViewGroup, viewType: Int) -> VH)? = null
 
@@ -175,7 +175,7 @@ class KlasterBuilderWithViewHolder<VH : RecyclerView.ViewHolder> internal constr
   /**
    * Create the [RecyclerView.Adapter] instance.
    */
-  fun build(): RecyclerView.Adapter<RecyclerView.ViewHolder> {
+  fun build(): RecyclerView.Adapter<ViewHolder> {
     if (getItemCount == null) throw KlasterException("Get items count function must be provided.")
     if (viewHolderBuilder == null) throw KlasterException("View holder builder must be provided.")
     if (binder == null) throw KlasterException("bind() must be set.")
@@ -197,7 +197,7 @@ class KlasterBuilderWithViewHolder<VH : RecyclerView.ViewHolder> internal constr
       _onViewRecycled = onViewRecycled,
       _registerAdapterDataObserver = registerAdapterDataObserver,
       _unregisterAdapterDataObserver = unregisterAdapterDataObserver
-    ) as RecyclerView.Adapter<RecyclerView.ViewHolder>
+    ) as RecyclerView.Adapter<ViewHolder>
   }
 
 }
